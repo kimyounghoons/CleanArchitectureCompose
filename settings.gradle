@@ -14,3 +14,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CleanArchitectureCompose"
 include ':app'
+include ':featureA:presentation'
+include ':featureA:domain'
+include ':featureA:data'
+include ':featureB:presentation'
+include ':featureB:data'
+include ':featureB:domain'
