@@ -1,16 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     namespace 'net.deali.cleanarchitecturecompose'
-    compileSdk 32
+    compileSdk Versions.targetSDK
 
     defaultConfig {
         applicationId "net.deali.cleanarchitecturecompose"
-        minSdk 24
-        targetSdk 32
+        minSdk Versions.minSDK
+        targetSdk Versions.targetSDK
         versionCode 1
         versionName "1.0"
 
@@ -24,6 +26,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            buildConfigField 'String', "TMDB_API_KEY", System.getenv("TMDB_API_KEY")
+        }
+        debug {
+//            buildConfigField 'String', "TMDB_API_KEY", System.getenv("TMDB_API_KEY")
         }
     }
     compileOptions {
@@ -37,7 +43,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion '1.2.0'
     }
     packagingOptions {
         resources {
@@ -47,6 +53,10 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':featureA:presentation')
+    implementation Libs.hiltAndroid
+
+    kapt Libs.hiltCompiler
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
