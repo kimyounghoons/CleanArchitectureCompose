@@ -23,7 +23,8 @@ object Versions {
     const val rxjava = "2.2.20"
     const val rxKotlin = "2.4.0"
     const val rxAndroid = "2.1.1"
-    const val rxBinding = "2.2.0"
+
+    const val compose = "1.3.0"
 
 
     const val kotlinXCoroutinesAndroid = "1.6.1"
@@ -96,6 +97,9 @@ object Libs {
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
+
+    //Compose
+    const val composeRuntimeLiveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
 
     //Test
     const val testJunit = "junit:junit:${Versions.testJunit}"

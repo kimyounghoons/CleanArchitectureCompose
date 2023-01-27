@@ -9,6 +9,7 @@ java {
 }
 
 dependencies {
+    implementation project(path: ':nativeCore')
     implementation Libs.kotlinXCoroutineCore
     implementation Libs.javaxInject
 }

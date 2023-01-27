@@ -3,7 +3,7 @@
 
     <application>
         <activity
-                android:name=".FeatureAActivity"
+                android:name=".PopularMoviesActivity"
                 android:exported="false"
                 android:label="@string/title_activity_feature_aactivity"
                 android:theme="@style/Theme.CleanArchitectureCompose" />
