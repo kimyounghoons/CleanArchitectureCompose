@@ -1,34 +1,59 @@
-package net.deali.data.module
+package net.deali.network.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import net.deali.data.BuildConfig
-import net.deali.data.FeatureARepositoryImpl
-import net.deali.data.service.ApiService
-import net.deali.domain.repository.FeatureARepository
+import net.deali.network.BuildConfig
+import net.deali.network.interceptor.ApiKeyInterceptor
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class ApiModule {
+object NetworkModule {
+    @Qualifier
+    @Retention
+    annotation class TmdbHeaderInterceptor
+
+    @Qualifier
+    @Retention
+    annotation class LoggingInterceptor
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    @TmdbHeaderInterceptor
+    fun provideHeaderInterceptor(): Interceptor {
+        return ApiKeyInterceptor()
+    }
+
+    @Singleton
+    @Provides
+    @LoggingInterceptor
+    fun provideLoggingInterceptor(): Interceptor {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor.Level.BODY
         } else {
             HttpLoggingInterceptor.Level.NONE
         }
+        return loggingInterceptor
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        @LoggingInterceptor loggingInterceptor: Interceptor,
+        @TmdbHeaderInterceptor headerInterceptor: Interceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(headerInterceptor)
             .build()
     }
 
@@ -42,15 +67,4 @@ class ApiModule {
             .build()
     }
 
-    @Singleton
-    @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideRepository(service: ApiService): FeatureARepository {
-        return FeatureARepositoryImpl(service)
-    }
 }

@@ -1,4 +1,4 @@
-package net.deali.data
+package net.deali.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

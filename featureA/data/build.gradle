@@ -20,10 +20,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            buildConfigField 'String', "TMDB_API_KEY", System.getenv("TMDB_API_KEY")
+            buildConfigField 'String', 'TMDB_API_KEY', "\"${System.getenv('TMDB_API_KEY')}\""
         }
         debug {
-//            buildConfigField 'String', "TMDB_API_KEY", System.getenv("TMDB_API_KEY")
+            buildConfigField 'String', 'TMDB_API_KEY', "\"${System.getenv('TMDB_API_KEY')}\""
         }
     }
     compileOptions {
@@ -37,11 +37,8 @@ android {
 
 dependencies {
     implementation project(path: ':featureA:domain')
+    implementation project(path: ':network')
     implementation Libs.retrofit
-    implementation Libs.retrofitRxjavaAdapter
-    implementation Libs.retrofitConvertGson
-    implementation Libs.okHttp
-    implementation Libs.okHttp3LoggingIntercepter
     implementation Libs.gson
     implementation Libs.hiltAndroid
 
