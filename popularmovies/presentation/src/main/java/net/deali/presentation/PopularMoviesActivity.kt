@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import dagger.hilt.android.AndroidEntryPoint
 import net.deali.core.BaseActivity
+import net.deali.core.ui.compose.SecondScaffold
 import net.deali.domain.model.PopularMovies
 import net.deali.nativecore.ApiError
 import net.deali.presentation.ui.PopularMoviesCompose
@@ -24,9 +25,13 @@ class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
 
     @Composable
     override fun ComposeContent() {
-        val items by vm.items.observeAsState(PopularMovies())
-        val apiError by vm.apiError.observeAsState(ApiError.None)
-        PopularMoviesCompose(items, apiError)
+        SecondScaffold(title = "인기영화", onBackPressed = {
+            finish()
+        }) {
+            val items by vm.items.observeAsState(PopularMovies())
+            val apiError by vm.apiError.observeAsState(ApiError.None)
+            PopularMoviesCompose(items, apiError)
+        }
     }
 
     companion object {

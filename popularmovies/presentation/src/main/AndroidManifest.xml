@@ -3,9 +3,9 @@
 
     <application>
         <activity
-                android:name=".PopularMoviesActivity"
+                android:name="net.deali.presentation.PopularMoviesActivity"
                 android:exported="false"
-                android:label="@string/title_activity_feature_aactivity"
+                android:label="@string/title_activity_popularmovies_activity"
                 android:theme="@style/Theme.CleanArchitectureCompose" />
     </application>
 

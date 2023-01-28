@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'net.deali.data'
+    namespace 'net.deali.popularmovies.data'
     compileSdk Versions.targetSDK
 
     defaultConfig {
@@ -20,10 +20,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'TMDB_API_KEY', "\"${System.getenv('TMDB_API_KEY')}\""
         }
         debug {
-            buildConfigField 'String', 'TMDB_API_KEY', "\"${System.getenv('TMDB_API_KEY')}\""
         }
     }
     compileOptions {
@@ -37,7 +35,7 @@ android {
 
 dependencies {
     implementation project(path: ':nativeCore')
-    implementation project(path: ':featureA:domain')
+    implementation project(path: ':popularmovies:domain')
     implementation project(path: ':network')
     implementation Libs.retrofit
     implementation Libs.gson

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'net.deali.presentation'
+    namespace 'net.deali.moviesearch.presentation'
     compileSdk Versions.targetSDK
 
     defaultConfig {
@@ -49,8 +49,8 @@ android {
 dependencies {
     implementation project(path: ':core')
     implementation project(path: ':nativeCore')
-    implementation project(path: ':featureA:domain')
-    implementation project(path: ':featureA:data')
+    implementation project(path: ':moviesearch:domain')
+    implementation project(path: ':moviesearch:data')
     implementation Libs.composeRuntimeLiveData
     implementation Libs.coilCompose
     implementation Libs.hiltAndroid
@@ -74,4 +74,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
 }

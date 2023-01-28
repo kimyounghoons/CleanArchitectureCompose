@@ -1,24 +1,20 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'net.deali.cleanarchitecturecompose'
+    namespace 'net.deali.popularmoves.presentation'
     compileSdk Versions.targetSDK
 
     defaultConfig {
-        applicationId "net.deali.cleanarchitecturecompose"
         minSdk Versions.minSDK
         targetSdk Versions.targetSDK
-        multiDexEnabled true
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -28,8 +24,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
         }
     }
     compileOptions {
@@ -54,22 +48,30 @@ android {
 
 dependencies {
     implementation project(path: ':core')
-    implementation project(path: ':popularmovies:presentation')
-    implementation project(path: ':moviesearch:presentation')
+    implementation project(path: ':nativeCore')
+    implementation project(path: ':popularmovies:domain')
+    implementation project(path: ':popularmovies:data')
+    implementation Libs.composeRuntimeLiveData
+    implementation Libs.coilCompose
     implementation Libs.hiltAndroid
-
-    kapt Libs.hiltCompiler
-
-    implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.activity:activity-compose:1.3.1'
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
-    implementation 'androidx.compose.material:material:1.1.1'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'androidx.compose.material:material:1.2.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    kapt Libs.hiltCompiler
+
+    // When using Kotlin.
+    kapt Libs.androidxHiltCompiler
+    implementation Libs.androidxViewModelKtx
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

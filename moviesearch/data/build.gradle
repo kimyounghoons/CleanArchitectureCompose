@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'net.deali.data'
+    namespace 'net.deali.moviesearch.data'
     compileSdk 32
 
     defaultConfig {

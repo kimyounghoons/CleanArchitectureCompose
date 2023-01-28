@@ -13,7 +13,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MainCompose(list: List<String>, onClick: (String) -> Unit) {
+fun MainCompose(
+    list: List<String>,
+    onClick: (String) -> Unit
+) {
     Column {
         list.forEach { title ->
             Text(

@@ -14,12 +14,12 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CleanArchitectureCompose"
 include ':app'
-include ':featureA:presentation'
-include ':featureA:domain'
-include ':featureA:data'
-include ':featureB:presentation'
-include ':featureB:data'
-include ':featureB:domain'
+include ':popularmovies:presentation'
+include ':popularmovies:domain'
+include ':popularmovies:data'
+include ':moviesearch:presentation'
+include ':moviesearch:data'
+include ':moviesearch:domain'
 include ':network'
 include ':core'
 include ':nativeCore'
