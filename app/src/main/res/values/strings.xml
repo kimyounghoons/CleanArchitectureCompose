@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">CleanArchitectureCompose</string>
+    <string name="popular_movie">인기 영화</string>
+    <string name="now_playing">상영 중인 영화</string>
+    <string name="trend_movie">트렌트</string>
 </resources>

@@ -1,19 +1,22 @@
 package net.deali.cleanarchitecturecompose
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import dagger.hilt.android.AndroidEntryPoint
 import net.deali.cleanarchitecturecompose.ui.MainCompose
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.MainScaffold
+import net.deali.domain.model.PopularMovieEntity
+import net.deali.nativecore.ApiError
 import net.deali.presentation.MovieSearchActivity
-//import net.deali.presentation.MovieSearchActivity
 import net.deali.presentation.PopularMoviesActivity
 
 @AndroidEntryPoint
@@ -24,6 +27,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initObserver()
+        vm.fetchPopularMovies()
     }
 
     private fun initObserver() {
@@ -31,6 +35,9 @@ class MainActivity : BaseActivity<MainViewModel>() {
             when (event) {
                 MainViewModel.Event.GoToPopularMoviesEvent -> {
                     PopularMoviesActivity.open(this)
+                }
+                MainViewModel.Event.GoToNowPlayingMoviesEvent ->{
+                    Toast.makeText(this, "작업중입니다.",Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -48,9 +55,13 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 }
             },
             content = {
+                val popularItems by vm.popularItems.observeAsState(PopularMovieEntity())
+                val popularApiError by vm.apiError.observeAsState(ApiError.None)
                 MainCompose(
-                    list = vm.list,
-                    onClick = vm::onClick
+                    popularItems = popularItems,
+                    popularApiError = popularApiError,
+                    onMorePopularMoviesClick = vm::onMorePopularMoviesClick,
+                    onMoreNowPlayingMoviesClick = vm::onMoreNowPlayingMoviesClick
                 )
             },
         )

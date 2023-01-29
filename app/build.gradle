@@ -54,12 +54,15 @@ android {
 
 dependencies {
     implementation project(path: ':core')
+    implementation project(path: ':nativeCore')
     implementation project(path: ':popularmovies:presentation')
+    implementation project(path: ':popularmovies:domain')
     implementation project(path: ':moviesearch:presentation')
+    implementation project(path: ':moviesearch:domain')
     implementation Libs.hiltAndroid
 
     kapt Libs.hiltCompiler
-
+    implementation Libs.composeRuntimeLiveData
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.activity:activity-compose:1.3.1'

@@ -31,6 +31,7 @@ fun SecondScaffold(
                 }
             )
         },
+        backgroundColor = colorResource(id = R.color.black)
     ) { innerPadding ->
         Column(Modifier.padding(innerPadding)) {
             content()

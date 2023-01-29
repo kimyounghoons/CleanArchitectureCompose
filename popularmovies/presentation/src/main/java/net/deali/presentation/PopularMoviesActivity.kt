@@ -10,9 +10,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import dagger.hilt.android.AndroidEntryPoint
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.SecondScaffold
-import net.deali.domain.model.PopularMovies
+import net.deali.domain.model.PopularMovieEntity
 import net.deali.nativecore.ApiError
-import net.deali.presentation.ui.PopularMoviesCompose
+import net.deali.presentation.ui.LazyColumnPopularMoviesCompose
 
 @AndroidEntryPoint
 class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
@@ -28,9 +28,9 @@ class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
         SecondScaffold(title = "인기영화", onBackPressed = {
             finish()
         }) {
-            val items by vm.items.observeAsState(PopularMovies())
+            val items by vm.items.observeAsState(PopularMovieEntity())
             val apiError by vm.apiError.observeAsState(ApiError.None)
-            PopularMoviesCompose(items, apiError)
+            LazyColumnPopularMoviesCompose(items, apiError)
         }
     }
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="title_activity_main">MainActivity</string>
+    <string name="more_text">더보기</string>
+
 </resources>

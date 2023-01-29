@@ -1,5 +1,7 @@
 package net.deali.domain.model
 
-data class PopularMovies(
+import net.deali.nativecore.Movie
+
+data class PopularMovieEntity(
     val movies: List<Movie> = listOf()
 )

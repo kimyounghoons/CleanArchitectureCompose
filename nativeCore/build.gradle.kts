@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
+    id ("kotlin-kapt")
 }
 
 java {
@@ -10,4 +11,5 @@ java {
 
 dependencies {
     implementation(Libs.kotlinXCoroutineCore)
+    implementation(Libs.gson)
 }

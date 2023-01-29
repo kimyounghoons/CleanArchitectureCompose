@@ -1,7 +1,7 @@
 package net.deali.domain.repository
 
-import net.deali.domain.model.PopularMovies
+import net.deali.domain.model.PopularMovieEntity
 
 interface PopularRepository {
-    suspend fun getPopularMoives(): PopularMovies
+    suspend fun getPopularMoives(): PopularMovieEntity
 }

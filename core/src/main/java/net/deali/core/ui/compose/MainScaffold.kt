@@ -24,7 +24,9 @@ fun MainScaffold(
                 actions = actions,
                 backgroundColor = colorResource(id = R.color.black)
             )
-        }) { innerPadding ->
+        },
+        backgroundColor = colorResource(id = R.color.black)
+    ) { innerPadding ->
         Column(Modifier.padding(innerPadding)) {
             content()
         }

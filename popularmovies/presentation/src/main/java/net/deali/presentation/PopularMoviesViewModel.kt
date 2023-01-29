@@ -7,24 +7,24 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import net.deali.domain.model.PopularMovies
-import net.deali.domain.usecase.GetLastestMovieUseCase
+import net.deali.domain.model.PopularMovieEntity
+import net.deali.domain.usecase.GetPopularMovieUseCase
 import net.deali.nativecore.ApiError
 import net.deali.nativecore.Resource
 import javax.inject.Inject
 
 @HiltViewModel
 class PopularMoviesViewModel @Inject constructor(
-    private val getLastestMovieUseCase: GetLastestMovieUseCase
+    private val getPopularMovieUseCase: GetPopularMovieUseCase
 ) : ViewModel() {
-    private val _items = MutableLiveData<PopularMovies>()
-    val items: LiveData<PopularMovies> = _items
+    private val _items = MutableLiveData<PopularMovieEntity>()
+    val items: LiveData<PopularMovieEntity> = _items
 
     private val _apiError = MutableLiveData<ApiError>()
     val apiError: LiveData<ApiError> = _apiError
 
     fun fetch() {
-        getLastestMovieUseCase().onEach { result ->
+        getPopularMovieUseCase().onEach { result ->
             when (result) {
                 is Resource.Loading -> {
 

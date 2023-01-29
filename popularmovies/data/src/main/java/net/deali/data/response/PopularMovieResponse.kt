@@ -1,8 +1,9 @@
-package net.deali.data.dto
+package net.deali.data.response
 
 import com.google.gson.annotations.SerializedName
+import net.deali.nativecore.BaseResponse
 
-data class PopularMovieDTO(
+data class PopularMovieResponse(
     @SerializedName("page")
     val page: Int? = null,
     @SerializedName("results")
@@ -11,7 +12,7 @@ data class PopularMovieDTO(
     val totalPages: Int? = null,
     @SerializedName("total_results")
     val totalResults: Int? = null
-) : BaseDTO() {
+) : BaseResponse() {
     data class Result(
         @SerializedName("adult")
         val adult: Boolean? = null,

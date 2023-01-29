@@ -1,40 +1,34 @@
 package net.deali.cleanarchitecturecompose.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import net.deali.cleanarchitecturecompose.R
+import net.deali.core.ui.compose.CommonTitle
+import net.deali.domain.model.PopularMovieEntity
+import net.deali.nativecore.ApiError
+import net.deali.presentation.ui.LazyRowPopularMoviesCompose
 
 @Composable
 fun MainCompose(
-    list: List<String>,
-    onClick: (String) -> Unit
+    popularItems: PopularMovieEntity,
+    popularApiError: ApiError,
+    onMorePopularMoviesClick: () -> Unit,
+    onMoreNowPlayingMoviesClick: () -> Unit
 ) {
-    Column {
-        list.forEach { title ->
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(
-                        onClick = {
-                            onClick.invoke(title)
-                        }
-                    )
-                    .padding(vertical = 16.dp),
-                text = title,
-                textAlign = TextAlign.Center
-            )
-            Divider(
-                modifier = Modifier.fillMaxWidth(),
-                color = Color.Gray
-            )
-        }
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        CommonTitle(
+            title = stringResource(id = R.string.popular_movie),
+            onClick = onMorePopularMoviesClick
+        )
+        LazyRowPopularMoviesCompose(items = popularItems, apiError = popularApiError)
+        CommonTitle(
+            title = stringResource(id = R.string.now_playing),
+            onClick = onMoreNowPlayingMoviesClick
+        )
     }
 }
