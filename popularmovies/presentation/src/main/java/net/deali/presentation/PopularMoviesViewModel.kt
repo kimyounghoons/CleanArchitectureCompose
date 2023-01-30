@@ -7,33 +7,50 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import net.deali.domain.model.PopularMovieEntity
 import net.deali.domain.usecase.GetPopularMovieUseCase
-import net.deali.nativecore.ApiError
 import net.deali.nativecore.Resource
+import net.deali.nativecore.model.BaseModel
+import net.deali.nativecore.model.EmptyModel
+import net.deali.nativecore.model.ErrorModel
 import javax.inject.Inject
 
 @HiltViewModel
 class PopularMoviesViewModel @Inject constructor(
     private val getPopularMovieUseCase: GetPopularMovieUseCase
 ) : ViewModel() {
-    private val _items = MutableLiveData<PopularMovieEntity>()
-    val items: LiveData<PopularMovieEntity> = _items
+    private val _items = MutableLiveData<List<BaseModel>>(listOf())
+    val items: LiveData<List<BaseModel>> = _items
 
-    private val _apiError = MutableLiveData<ApiError>()
-    val apiError: LiveData<ApiError> = _apiError
+    var pageCount: Int = 1
+    var isLoading: Boolean = false
 
-    fun fetch() {
-        getPopularMovieUseCase().onEach { result ->
+    fun onRefresh() {
+        if (isLoading) return
+        _items.value = listOf()
+        pageCount = 1
+        onLoadMore()
+    }
+
+    fun onLoadMore() {
+        if (isLoading) return
+
+        getPopularMovieUseCase(pageCount).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-
+                    isLoading = true
                 }
                 is Resource.Success -> {
-                    _items.value = result.model
+                    if (pageCount == 1 && result.model.movies.isEmpty()) {
+                        _items.value = listOf(EmptyModel())
+                    } else {
+                        pageCount++
+                        _items.value = items.value!! + result.model.movies
+                    }
+                    isLoading = false
                 }
                 is Resource.Fail -> {
-                    _apiError.value = result.apiError
+                    _items.value = listOf(ErrorModel(result.apiResponse))
+                    isLoading = false
                 }
             }
         }.launchIn(viewModelScope)

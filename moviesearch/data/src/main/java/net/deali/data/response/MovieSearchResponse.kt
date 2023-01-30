@@ -1,7 +1,7 @@
 package net.deali.data.response
 
 import com.google.gson.annotations.SerializedName
-import net.deali.nativecore.BaseResponse
+import net.deali.coredata.response.BaseResponse
 
 data class MovieSearchResponse(
     @SerializedName("page")
@@ -12,7 +12,7 @@ data class MovieSearchResponse(
     val totalPages: Int? = null,
     @SerializedName("total_results")
     val totalResults: Int? = null
-) : BaseResponse() {
+) : net.deali.coredata.response.BaseResponse() {
     data class Result(
         @SerializedName("adult")
         val adult: Boolean? = null,

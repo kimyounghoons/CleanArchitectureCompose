@@ -9,12 +9,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import net.deali.domain.model.PopularMovieEntity
-import net.deali.nativecore.ApiError
+import net.deali.nativecore.ApiResponse
 
 @Composable
 fun LazyRowPopularMoviesCompose(
     items: PopularMovieEntity,
-    apiError: ApiError
+    apiResponse: ApiResponse
 ) {
     LazyRow(
         modifier = Modifier
@@ -23,22 +23,22 @@ fun LazyRowPopularMoviesCompose(
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        if (apiError == ApiError.None) {
+        if (apiResponse == ApiResponse.Success) {
             itemsIndexed(items.movies) { index, item ->
                 HorizontalItem(item)
             }
         } else {
-            val errorMsg = when (apiError) {
-                is ApiError.HttpError -> {
+            val errorMsg = when (apiResponse) {
+                is ApiResponse.HttpError -> {
                     "에러"
                 }
-                ApiError.NetworkError -> {
+                ApiResponse.NetworkError -> {
                     "네트워크에러"
                 }
-                ApiError.None -> {
+                ApiResponse.Success -> {
                     ""
                 }
-                ApiError.UnknownError -> {
+                ApiResponse.UnknownError -> {
                     "알수 없는 에러"
                 }
             }

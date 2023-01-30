@@ -8,13 +8,13 @@ import androidx.compose.ui.res.stringResource
 import net.deali.cleanarchitecturecompose.R
 import net.deali.core.ui.compose.CommonTitle
 import net.deali.domain.model.PopularMovieEntity
-import net.deali.nativecore.ApiError
+import net.deali.nativecore.ApiResponse
 import net.deali.presentation.ui.LazyRowPopularMoviesCompose
 
 @Composable
 fun MainCompose(
     popularItems: PopularMovieEntity,
-    popularApiError: ApiError,
+    popularApiResponse: ApiResponse,
     onMorePopularMoviesClick: () -> Unit,
     onMoreNowPlayingMoviesClick: () -> Unit
 ) {
@@ -25,7 +25,7 @@ fun MainCompose(
             title = stringResource(id = R.string.popular_movie),
             onClick = onMorePopularMoviesClick
         )
-        LazyRowPopularMoviesCompose(items = popularItems, apiError = popularApiError)
+        LazyRowPopularMoviesCompose(items = popularItems, apiResponse = popularApiResponse)
         CommonTitle(
             title = stringResource(id = R.string.now_playing),
             onClick = onMoreNowPlayingMoviesClick

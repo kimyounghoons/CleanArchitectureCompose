@@ -31,6 +31,7 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':coredata')
     implementation project(path: ':nativeCore')
     implementation project(path: ':moviesearch:domain')
     implementation project(path: ':network')

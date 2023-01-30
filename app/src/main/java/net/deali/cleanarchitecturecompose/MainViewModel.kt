@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import net.deali.domain.model.PopularMovieEntity
 import net.deali.domain.usecase.GetMovieSearchUseCase
 import net.deali.domain.usecase.GetPopularMovieUseCase
-import net.deali.nativecore.ApiError
+import net.deali.nativecore.ApiResponse
 import net.deali.nativecore.Resource
 import javax.inject.Inject
 
@@ -25,8 +25,8 @@ class MainViewModel @Inject constructor(
     private val _popularItems = MutableLiveData<PopularMovieEntity>()
     val popularItems: LiveData<PopularMovieEntity> = _popularItems
 
-    private val _popularApiError = MutableLiveData<ApiError>()
-    val apiError: LiveData<ApiError> = _popularApiError
+    private val _popularApiResponse = MutableLiveData<ApiResponse>()
+    val apiResponse: LiveData<ApiResponse> = _popularApiResponse
     fun onMorePopularMoviesClick() {
         _event.value = Event.GoToPopularMoviesEvent
     }
@@ -36,7 +36,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun fetchPopularMovies() {
-        getPopularMovieUseCase().onEach { result ->
+        getPopularMovieUseCase(1).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
 
@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(
                     _popularItems.value = result.model
                 }
                 is Resource.Fail -> {
-                    _popularApiError.value = result.apiError
+                    _popularApiResponse.value = result.apiResponse
                 }
             }
         }.launchIn(viewModelScope)

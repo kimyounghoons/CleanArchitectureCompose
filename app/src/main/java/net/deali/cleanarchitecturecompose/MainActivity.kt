@@ -15,7 +15,7 @@ import net.deali.cleanarchitecturecompose.ui.MainCompose
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.MainScaffold
 import net.deali.domain.model.PopularMovieEntity
-import net.deali.nativecore.ApiError
+import net.deali.nativecore.ApiResponse
 import net.deali.presentation.MovieSearchActivity
 import net.deali.presentation.PopularMoviesActivity
 
@@ -56,10 +56,10 @@ class MainActivity : BaseActivity<MainViewModel>() {
             },
             content = {
                 val popularItems by vm.popularItems.observeAsState(PopularMovieEntity())
-                val popularApiError by vm.apiError.observeAsState(ApiError.None)
+                val popularApiResponse by vm.apiResponse.observeAsState(ApiResponse.Success)
                 MainCompose(
                     popularItems = popularItems,
-                    popularApiError = popularApiError,
+                    popularApiResponse = popularApiResponse,
                     onMorePopularMoviesClick = vm::onMorePopularMoviesClick,
                     onMoreNowPlayingMoviesClick = vm::onMoreNowPlayingMoviesClick
                 )

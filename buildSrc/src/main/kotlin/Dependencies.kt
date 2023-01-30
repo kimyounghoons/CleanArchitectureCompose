@@ -26,6 +26,7 @@ object Versions {
 
     const val compose = "1.3.0"
     const val coil = "2.2.2"
+    const val accompanist = "0.25.1"
 
     const val kotlinXCoroutinesAndroid = "1.6.1"
     const val kotlinXCoroutineCore = "1.5.0"
@@ -101,6 +102,7 @@ object Libs {
     //Compose
     const val composeRuntimeLiveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
     const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
+    const val accompanistSwipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
 
     //Test
     const val testJunit = "junit:junit:${Versions.testJunit}"

@@ -1,4 +1,4 @@
-package net.deali.nativecore
+package net.deali.nativecore.model
 
 data class Movie(
     val title: String = "",
@@ -6,4 +6,4 @@ data class Movie(
     val isAdult: Boolean = false,
     val releaseDate: String = "",
     val overview: String = ""
-)
+) : BaseModel()

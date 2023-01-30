@@ -1,7 +1,7 @@
 package net.deali.data.response
 
 import com.google.gson.annotations.SerializedName
-import net.deali.nativecore.BaseResponse
+import net.deali.coredata.response.BaseResponse
 
 data class PopularMovieResponse(
     @SerializedName("page")

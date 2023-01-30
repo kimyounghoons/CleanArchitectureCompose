@@ -13,11 +13,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import net.deali.nativecore.Movie
+import net.deali.nativecore.model.Movie
 
 @Composable
 fun VerticalItem(item: Movie) {
     Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(148.dp),
         shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.surface,
         elevation = 2.dp

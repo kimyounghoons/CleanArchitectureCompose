@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':coredata')
     implementation project(path: ':nativeCore')
     implementation project(path: ':popularmovies:domain')
     implementation project(path: ':network')
