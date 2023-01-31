@@ -14,7 +14,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.SecondScaffold
-import net.deali.presentation.ui.LazyColumnPopularMoviesCompose
+import net.deali.presentation.ui.LazyColumnMoviesCompose
 
 @AndroidEntryPoint
 class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
@@ -27,9 +27,12 @@ class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
 
     @Composable
     override fun ComposeContent() {
-        SecondScaffold(title = "인기영화", onBackPressed = {
-            finish()
-        }) {
+        SecondScaffold(
+            title = "인기 영화",
+            onBackPressed = {
+                finish()
+            }
+        ) {
             SwipeRefresh(
                 modifier = Modifier.fillMaxSize(),
                 state = rememberSwipeRefreshState(isRefreshing = false),
@@ -37,7 +40,7 @@ class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
             ) {
                 val items by vm.items.observeAsState(listOf())
                 val onLoadMore = vm::onLoadMore
-                LazyColumnPopularMoviesCompose(
+                LazyColumnMoviesCompose(
                     items = items,
                     onLoadMore = onLoadMore,
                     onRefresh = vm::onRefresh

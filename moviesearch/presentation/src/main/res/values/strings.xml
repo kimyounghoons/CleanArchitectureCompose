@@ -1,3 +1,4 @@
 <resources>
     <string name="title_activity_movie_search">MovieSearchActivity</string>
+    <string name="insert_movie">영화를 입력 해주세요.</string>
 </resources>

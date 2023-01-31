@@ -4,7 +4,7 @@ import net.deali.coredata.response.BaseResponse
 import net.deali.data.response.PopularMovieResponse
 import net.deali.domain.model.PopularMovieEntity
 import net.deali.nativecore.ApiResponse
-import net.deali.nativecore.model.Movie
+import net.deali.coredomain.Movie
 import net.deali.nativecore.resizeImage
 
 fun PopularMovieResponse.toModel(): PopularMovieEntity {
@@ -20,7 +20,10 @@ fun PopularMovieResponse.toModel(): PopularMovieEntity {
         } ?: listOf()
     )
     if (isSuccess()) {
-        entity.apiResponse = ApiResponse.Success
+        entity.apply {
+            apiResponse = ApiResponse.Success
+            totalPageCount = totalPages ?: 1
+        }
     } else {
         when (httpCode) {
             BaseResponse.NETWORK_ERROR -> {

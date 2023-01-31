@@ -23,16 +23,17 @@ class PopularMoviesViewModel @Inject constructor(
 
     var pageCount: Int = 1
     var isLoading: Boolean = false
-
+    var isAllLoaded: Boolean = false
     fun onRefresh() {
         if (isLoading) return
         _items.value = listOf()
         pageCount = 1
+        isAllLoaded = false
         onLoadMore()
     }
 
     fun onLoadMore() {
-        if (isLoading) return
+        if (isLoading || isAllLoaded) return
 
         getPopularMovieUseCase(pageCount).onEach { result ->
             when (result) {
@@ -47,6 +48,9 @@ class PopularMoviesViewModel @Inject constructor(
                         _items.value = items.value!! + result.model.movies
                     }
                     isLoading = false
+                    if (pageCount >= result.model.totalPageCount) {
+                        isAllLoaded = true
+                    }
                 }
                 is Resource.Fail -> {
                     _items.value = listOf(ErrorModel(result.apiResponse))

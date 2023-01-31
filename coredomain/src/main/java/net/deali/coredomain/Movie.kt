@@ -1,4 +1,6 @@
-package net.deali.nativecore.model
+package net.deali.coredomain
+
+import net.deali.nativecore.model.BaseModel
 
 data class Movie(
     val title: String = "",

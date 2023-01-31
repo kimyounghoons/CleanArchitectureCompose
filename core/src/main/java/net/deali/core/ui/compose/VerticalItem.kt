@@ -1,4 +1,4 @@
-package net.deali.presentation.ui
+package net.deali.core.ui.compose
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,7 +13,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import net.deali.nativecore.model.Movie
+import net.deali.coredomain.Movie
 
 @Composable
 fun VerticalItem(item: Movie) {

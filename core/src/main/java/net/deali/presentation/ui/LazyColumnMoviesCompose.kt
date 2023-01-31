@@ -12,14 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import net.deali.core.ui.compose.InfiniteListHandler
+import net.deali.core.ui.compose.VerticalItem
+import net.deali.coredomain.Movie
 import net.deali.nativecore.ApiResponse
 import net.deali.nativecore.model.BaseModel
 import net.deali.nativecore.model.EmptyModel
 import net.deali.nativecore.model.ErrorModel
-import net.deali.nativecore.model.Movie
 
 @Composable
-fun LazyColumnPopularMoviesCompose(
+fun LazyColumnMoviesCompose(
     modifier: Modifier = Modifier,
     items: List<BaseModel>,
     onLoadMore: () -> Unit,
