@@ -14,7 +14,8 @@ import androidx.compose.ui.unit.dp
 import net.deali.core.ui.compose.InfiniteListHandler
 import net.deali.core.ui.compose.VerticalItem
 import net.deali.coredomain.Movie
-import net.deali.nativecore.ApiResponse
+import net.deali.coredomain.exception.CustomHttpException
+import net.deali.coredomain.exception.NetworkException
 import net.deali.nativecore.model.BaseModel
 import net.deali.nativecore.model.EmptyModel
 import net.deali.nativecore.model.ErrorModel
@@ -50,23 +51,20 @@ fun LazyColumnMoviesCompose(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "데이터가 없습니다.",
+                                text = item.message,
                                 color = Color.White
                             )
                         }
                     }
                     is ErrorModel -> {
-                        val errorMsg = when (item.apiResponse) {
-                            is ApiResponse.HttpError -> {
+                        val errorMsg = when (item.exception) {
+                            is CustomHttpException -> {
                                 "에러"
                             }
-                            ApiResponse.NetworkError -> {
+                            is NetworkException -> {
                                 "네트워크에러"
                             }
-                            ApiResponse.Success -> {
-                                ""
-                            }
-                            ApiResponse.UnknownError -> {
+                            else -> {
                                 "알수 없는 에러"
                             }
                         }

@@ -1,30 +1,22 @@
 package net.deali.coredata.repository
 
 import net.deali.coredata.response.BaseResponse
-import net.deali.coredata.response.BaseResponse.Companion.NETWORK_ERROR
-import net.deali.coredata.response.BaseResponse.Companion.UNKNOWN_ERROR
+import net.deali.coredomain.exception.CustomHttpException
+import net.deali.coredomain.exception.NetworkException
+import net.deali.coredomain.exception.UnknownException
 import retrofit2.HttpException
 import java.io.IOException
 
 open class BaseRepository {
-    suspend inline fun <reified response : BaseResponse> safeResult(responseFunction: suspend () -> response): response {
-        return try {
-            responseFunction.invoke()
+    suspend fun <response : BaseResponse> safeResult(responseFunction: suspend () -> response): response {
+        try {
+            return responseFunction.invoke()
         } catch (e: HttpException) {
-            val result = response::class.java.newInstance().apply {
-                httpCode = e.code()
-            }
-            result
+            throw CustomHttpException(code = e.code())
         } catch (e: IOException) {
-            val result = response::class.java.newInstance().apply {
-                httpCode = NETWORK_ERROR
-            }
-            result
+            throw NetworkException()
         } catch (e: Exception) {
-            val result = response::class.java.newInstance().apply {
-                httpCode = UNKNOWN_ERROR
-            }
-            result
+            throw UnknownException()
         }
     }
 }

@@ -53,7 +53,7 @@ class MovieSearchViewModel @Inject constructor(
                     }
                 }
                 is Resource.Fail -> {
-                    _items.value = listOf(ErrorModel(result.apiResponse))
+                    _items.value = listOf(ErrorModel(result.exception))
                     isLoading = false
                 }
             }

@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
 }
 
 android {
@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
-    implementation (Libs.gson)
-    implementation (Libs.retrofit)
+    implementation(Libs.retrofit)
+    implementation(project(path = ":nativeCore", configuration = "default"))
+    implementation(project(path = ":coredomain", configuration = "default"))
 }

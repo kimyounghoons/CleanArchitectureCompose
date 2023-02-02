@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import net.deali.domain.model.PopularMovieEntity
 import net.deali.domain.usecase.GetMovieSearchUseCase
 import net.deali.domain.usecase.GetPopularMovieUseCase
-import net.deali.nativecore.ApiResponse
 import net.deali.nativecore.Resource
+import net.deali.nativecore.model.BaseModel
+import net.deali.nativecore.model.ErrorModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,16 +22,13 @@ class MainViewModel @Inject constructor(
     val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
 
-    private val _popularItems = MutableLiveData<PopularMovieEntity>()
-    val popularItems: LiveData<PopularMovieEntity> = _popularItems
-
-    private val _popularApiResponse = MutableLiveData<ApiResponse>()
-    val apiResponse: LiveData<ApiResponse> = _popularApiResponse
+    private val _popularItems = MutableLiveData<List<BaseModel>>()
+    val popularItems: LiveData<List<BaseModel>> = _popularItems
     fun onMorePopularMoviesClick() {
         _event.value = Event.GoToPopularMoviesEvent
     }
 
-    fun onMoreNowPlayingMoviesClick(){
+    fun onMoreNowPlayingMoviesClick() {
         _event.value = Event.GoToNowPlayingMoviesEvent
     }
 
@@ -42,10 +39,10 @@ class MainViewModel @Inject constructor(
 
                 }
                 is Resource.Success -> {
-                    _popularItems.value = result.model
+                    _popularItems.value = result.model.movies
                 }
                 is Resource.Fail -> {
-                    _popularApiResponse.value = result.apiResponse
+                    _popularItems.value = listOf(ErrorModel(result.exception))
                 }
             }
         }.launchIn(viewModelScope)
@@ -53,7 +50,7 @@ class MainViewModel @Inject constructor(
 
     sealed class Event {
         object GoToPopularMoviesEvent : Event()
-        object GoToNowPlayingMoviesEvent: Event()
+        object GoToNowPlayingMoviesEvent : Event()
     }
 
     companion object {
