@@ -20,13 +20,14 @@ fun HorizontalItem(item: Movie) {
     Column(
         modifier = Modifier
             .width(108.dp)
-            .fillMaxHeight()
+            .fillMaxHeight(),
     ) {
+
         AsyncImage(
             modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
                 .fillMaxWidth()
-                .aspectRatio(3 / 4f),
+                .aspectRatio(3 / 4f)
+                .clip(RoundedCornerShape(8.dp)),
             model = item.imageUrl,
             contentScale = ContentScale.Crop,
             contentDescription = "movie",

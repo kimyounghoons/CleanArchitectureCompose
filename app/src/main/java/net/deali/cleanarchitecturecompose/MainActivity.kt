@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.deali.cleanarchitecturecompose.ui.MainCompose
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.MainScaffold
-import net.deali.domain.model.PopularMovieEntity
 import net.deali.presentation.MovieSearchActivity
 import net.deali.presentation.PopularMoviesActivity
 
@@ -45,7 +44,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
     @Composable
     override fun ComposeContent() {
         MainScaffold(
-            title = "CleanArchitecureCompose",
+            title = "The Movie Database",
             actions = {
                 IconButton(onClick = {
                     MovieSearchActivity.open(this@MainActivity)

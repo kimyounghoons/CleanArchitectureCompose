@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,14 +33,19 @@ fun VerticalItem(item: Movie) {
                 .height(140.dp)
         ) {
             AsyncImage(
-                modifier = Modifier.clip(RoundedCornerShape(8.dp)),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .aspectRatio(3 / 4f)
+                    .clip(RoundedCornerShape(8.dp)),
                 model = item.imageUrl,
+                contentScale = ContentScale.Crop,
                 contentDescription = "movie",
             )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 16.dp)
+                    .padding(start = 16.dp),
+                verticalArrangement = Arrangement.SpaceAround
             ) {
                 Text(
                     text = item.title,
@@ -57,14 +63,16 @@ fun VerticalItem(item: Movie) {
 
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ItemPreview() {
     VerticalItem(
         Movie(
             title = "영화제목",
             imageUrl = "",
-            isAdult = false
+            isAdult = false,
+            releaseDate = "2023-02-12",
+            overview = "영화 설명 ~~~~",
         )
     )
 }
