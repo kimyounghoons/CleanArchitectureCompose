@@ -1,12 +1,14 @@
 package net.deali.domain.repository
 
+import kotlinx.coroutines.flow.Flow
 import net.deali.domain.entity.MovieSearchEntity
+import net.deali.nativecore.Resource
 
 interface SearchRepository {
-    suspend fun getSearchMovies(
+    fun getSearchMovies(
         query: String,
         page: Int,
         includeAdult: Boolean?,
         region: String?,
-    ): MovieSearchEntity
+    ): Flow<Resource<MovieSearchEntity>>
 }

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import net.deali.cleanarchitecturecompose.R
 import net.deali.core.ui.compose.CommonTitle
-import net.deali.nativecore.model.BaseModel
+import net.deali.nativecore.BaseModel
 import net.deali.presentation.ui.LazyRowPopularMoviesCompose
 
 @Composable

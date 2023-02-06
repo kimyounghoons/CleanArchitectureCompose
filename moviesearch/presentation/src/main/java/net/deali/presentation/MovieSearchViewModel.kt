@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import net.deali.core.ui.uimodel.EmptyModel
+import net.deali.core.ui.uimodel.ErrorModel
 import net.deali.domain.usecase.GetMovieSearchUseCase
+import net.deali.nativecore.BaseModel
 import net.deali.nativecore.Resource
-import net.deali.nativecore.model.BaseModel
-import net.deali.nativecore.model.EmptyModel
-import net.deali.nativecore.model.ErrorModel
 import javax.inject.Inject
 
 @HiltViewModel
