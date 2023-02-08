@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import net.deali.network.BuildConfig
-import net.deali.network.interceptor.ApiKeyInterceptor
+import net.deali.network.interceptor.CommonQueryInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,7 +29,7 @@ object NetworkModule {
     @Provides
     @TmdbHeaderInterceptor
     fun provideHeaderInterceptor(): Interceptor {
-        return ApiKeyInterceptor()
+        return CommonQueryInterceptor()
     }
 
     @Singleton

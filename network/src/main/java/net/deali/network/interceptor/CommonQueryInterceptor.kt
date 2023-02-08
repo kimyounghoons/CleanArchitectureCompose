@@ -4,12 +4,13 @@ import net.deali.network.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class ApiKeyInterceptor : Interceptor {
+class CommonQueryInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val httpUrl = chain.request()
             .url
             .newBuilder()
-            .addQueryParameter(API_KEY_NAME, BuildConfig.TMDB_API_KEY)
+            .addQueryParameter(QUERY_KEY_API, QUERY_VALUE_API)
+            .addQueryParameter(QUERY_KEY_LANGUAGE, QUERY_VALUE_LANGUAGE)
             .build()
 
         val request = chain.request().newBuilder()
@@ -20,6 +21,10 @@ class ApiKeyInterceptor : Interceptor {
     }
 
     companion object {
-        private const val API_KEY_NAME = "api_key"
+        private const val QUERY_KEY_API = "api_key"
+        private const val QUERY_KEY_LANGUAGE = "language"
+
+        private const val QUERY_VALUE_API = BuildConfig.TMDB_API_KEY
+        private const val QUERY_VALUE_LANGUAGE = "ko-KR"
     }
 }
