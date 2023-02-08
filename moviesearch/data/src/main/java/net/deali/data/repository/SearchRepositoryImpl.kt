@@ -10,18 +10,18 @@ class SearchRepositoryImpl @Inject constructor(
     private val service: SearchApiService
 ) : BaseRepository(), SearchRepository {
 
-    override fun getSearchMovies(
+    override suspend fun getSearchMovies(
         query: String,
         page: Int,
         includeAdult: Boolean?,
         region: String?
-    ) = callApi {
+    ) = safeResult {
         service.getMovieSearch(
             query = query,
             page = page,
             includeAdult = includeAdult,
             region = region
-        ).toModel()
-    }
+        )
+    }.toModel()
 
 }

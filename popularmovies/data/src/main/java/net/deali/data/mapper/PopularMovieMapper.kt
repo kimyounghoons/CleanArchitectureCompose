@@ -15,5 +15,6 @@ fun PopularMovieResponse.toModel() = PopularMovieEntity(
             releaseDate = it.releaseDate ?: "",
             overview = it.overview ?: ""
         )
-    } ?: listOf()
+    } ?: listOf(),
+    apiException = apiException
 )

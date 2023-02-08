@@ -1,25 +1,26 @@
 package net.deali.coredata.repository
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import net.deali.coredomain.BaseEntity
-import net.deali.nativecore.Resource
+import net.deali.coredata.response.BaseResponse
 import net.deali.nativecore.exception.ApiException
 import retrofit2.HttpException
 import java.io.IOException
 
 open class BaseRepository {
-    fun <response : BaseEntity> callApi(responseFunction: suspend () -> response): Flow<Resource<response>> =
-        flow {
-            emit(Resource.Loading())
-            try {
-                emit(Resource.Success(responseFunction.invoke()))
-            } catch (e: HttpException) {
-                emit(Resource.Fail(ApiException.HttpException(code = e.code())))
-            } catch (e: IOException) {
-                emit(Resource.Fail(ApiException.NetworkException))
-            } catch (e: Exception) {
-                emit(Resource.Fail(ApiException.UnknownException))
-            }
+    inline fun <reified T : BaseResponse> safeResult(responseFunction: () -> T): T {
+        return try {
+            responseFunction.invoke()
+        } catch (e: HttpException) {
+            failResponse(ApiException.HttpException(code = e.code()))
+        } catch (e: IOException) {
+            failResponse(ApiException.NetworkException)
+        } catch (e: Exception) {
+            failResponse(ApiException.UnknownException)
         }
+    }
+
+    inline fun <reified T : BaseResponse> failResponse(
+        exception: ApiException
+    ): T = T::class.java.newInstance().apply {
+        apiException = exception
+    }
 }

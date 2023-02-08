@@ -1,6 +1,7 @@
 package net.deali.coredata.response
 
 import com.google.gson.annotations.SerializedName
+import net.deali.nativecore.exception.ApiException
 
 open class BaseResponse(
     @SerializedName("status_code")
@@ -8,9 +9,9 @@ open class BaseResponse(
     @SerializedName("status_message")
     val statusMessage: String? = null,
 
-    var httpCode: Int? = null,
+    var apiException: ApiException? = null
 ) {
-    fun isSuccess() = statusCode == null && httpCode == null
+    fun isSuccess() = statusCode == null && apiException == null
 
     companion object {
         const val NETWORK_ERROR = 999

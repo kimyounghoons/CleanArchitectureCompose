@@ -9,7 +9,7 @@ import javax.inject.Inject
 class PopularRepositoryImpl @Inject constructor(
     private val service: PopularApiService
 ) : BaseRepository(), PopularRepository {
-    override fun getPopularMoives(page: Int) = callApi {
-        service.getPopularMoives(page).toModel()
-    }
+    override suspend fun getPopularMoives(page: Int) = safeResult {
+        service.getPopularMoives(page)
+    }.toModel()
 }

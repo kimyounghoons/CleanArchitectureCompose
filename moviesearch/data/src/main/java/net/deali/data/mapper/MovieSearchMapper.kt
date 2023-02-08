@@ -15,5 +15,6 @@ fun MovieSearchResponse.toModel() = MovieSearchEntity(
             releaseDate = it.releaseDate ?: "",
             overview = it.overview ?: ""
         )
-    } ?: listOf()
+    } ?: listOf(),
+    apiException = apiException
 )
