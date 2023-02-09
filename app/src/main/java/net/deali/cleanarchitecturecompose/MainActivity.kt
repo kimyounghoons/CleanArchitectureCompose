@@ -3,6 +3,7 @@ package net.deali.cleanarchitecturecompose
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
@@ -10,6 +11,9 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import net.deali.cleanarchitecturecompose.ui.MainCompose
 import net.deali.core.BaseActivity
@@ -53,12 +57,18 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 }
             },
             content = {
-                val popularItems by vm.popularItems.observeAsState(listOf())
-                MainCompose(
-                    items = popularItems,
-                    onMorePopularMoviesClick = vm::onMorePopularMoviesClick,
-                    onMoreNowPlayingMoviesClick = vm::onMoreNowPlayingMoviesClick
-                )
+                SwipeRefresh(
+                    modifier = Modifier.fillMaxSize(),
+                    state = rememberSwipeRefreshState(isRefreshing = false),
+                    onRefresh = vm::onRefresh
+                ) {
+                    val popularItems by vm.popularItems.observeAsState(listOf())
+                    MainCompose(
+                        items = popularItems,
+                        onMorePopularMoviesClick = vm::onMorePopularMoviesClick,
+                        onMoreNowPlayingMoviesClick = vm::onMoreNowPlayingMoviesClick
+                    )
+                }
             },
         )
     }

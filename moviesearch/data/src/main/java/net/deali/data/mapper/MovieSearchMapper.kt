@@ -11,11 +11,13 @@ class MovieSearchMapper @Inject constructor() : Mapper<MovieSearchResponse, Movi
     override fun toModel(response: MovieSearchResponse): MovieSearchEntity = response.run {
         MovieSearchEntity(
             totalPageCount = totalPages ?: 1,
-            movieEntities = results?.map {
+            movieEntities = results?.filter {
+                it.posterPath != null && it.overview != null
+            }?.map {
                 MovieEntity(
                     title = it.title ?: "",
                     isAdult = it.adult ?: false,
-                    imageUrl = it.posterPath?.resizeImage(500) ?: "",
+                    imageUrl = it.posterPath?.resizeImage(300) ?: "",
                     releaseDate = it.releaseDate ?: "",
                     overview = it.overview ?: ""
                 )

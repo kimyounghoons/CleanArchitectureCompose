@@ -10,26 +10,34 @@ import kotlinx.coroutines.flow.onEach
 import net.deali.coredomain.Resource
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.ErrorEntity
-import net.deali.domain.usecase.GetMovieSearchUseCase
 import net.deali.domain.usecase.GetPopularMovieUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getMovieSearchUseCase: GetMovieSearchUseCase,
     private val getPopularMovieUseCase: GetPopularMovieUseCase
 ) : ViewModel() {
-    val _event = MutableLiveData<Event>()
+    private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
 
     private val _popularItems = MutableLiveData<List<BaseEntity>>()
     val popularItems: LiveData<List<BaseEntity>> = _popularItems
+
+    fun onRefresh() {
+        _popularItems.value = listOf()
+        fetchAll()
+    }
+
     fun onMorePopularMoviesClick() {
         _event.value = Event.GoToPopularMoviesEvent
     }
 
     fun onMoreNowPlayingMoviesClick() {
         _event.value = Event.GoToNowPlayingMoviesEvent
+    }
+
+    private fun fetchAll() {
+        fetchPopularMovies()
     }
 
     fun fetchPopularMovies() {

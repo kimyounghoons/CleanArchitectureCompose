@@ -11,11 +11,13 @@ class PopularMovieMapper @Inject constructor() : Mapper<PopularMovieResponse, Po
     override fun toModel(response: PopularMovieResponse): PopularMovieEntity = response.run {
         return PopularMovieEntity(
             totalPageCount = totalPages ?: 1,
-            movieEntities = results?.map {
+            movieEntities = results?.filter {
+                it.posterPath != null && it.overview != null
+            }?.map {
                 MovieEntity(
                     title = it.title ?: "",
                     isAdult = it.adult ?: false,
-                    imageUrl = it.posterPath?.resizeImage(500) ?: "",
+                    imageUrl = it.posterPath?.resizeImage(300) ?: "",
                     releaseDate = it.releaseDate ?: "",
                     overview = it.overview ?: ""
                 )

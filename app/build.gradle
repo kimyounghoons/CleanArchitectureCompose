@@ -68,6 +68,8 @@ dependencies {
     implementation Libs.androidXComposeUi
     implementation Libs.androidXComposeUiToolingPreview
     implementation Libs.androidXComposeMaterial
+    implementation Libs.accompanistSwipeRefresh
+
     testImplementation Libs.testJunit
     androidTestImplementation Libs.testExtJunit
     androidTestImplementation Libs.testEspresso
