@@ -1,5 +1,6 @@
 package net.deali.core.ui.compose
 
+import android.graphics.Movie
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -14,10 +15,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import net.deali.coredomain.Movie
+import net.deali.coredomain.entity.MovieEntity
 
 @Composable
-fun VerticalItem(item: Movie) {
+fun VerticalItem(item: MovieEntity) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -67,7 +68,7 @@ fun VerticalItem(item: Movie) {
 @Composable
 fun ItemPreview() {
     VerticalItem(
-        Movie(
+        MovieEntity(
             title = "영화제목",
             imageUrl = "",
             isAdult = false,

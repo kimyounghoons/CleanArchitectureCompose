@@ -13,10 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import net.deali.coredomain.Movie
+import net.deali.coredomain.entity.MovieEntity
 
 @Composable
-fun HorizontalItem(item: Movie) {
+fun HorizontalItem(item: MovieEntity) {
     Column(
         modifier = Modifier
             .width(108.dp)
@@ -49,7 +49,7 @@ fun HorizontalItem(item: Movie) {
 @Composable
 fun HorizontalItemPreview() {
     HorizontalItem(
-        Movie(
+        MovieEntity(
             title = "영화제목",
             imageUrl = "",
             isAdult = false

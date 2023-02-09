@@ -4,11 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import net.deali.nativecore.BaseModel
+import net.deali.core.ui.compose.LazyColumnMoviesCompose
+import net.deali.coredomain.entity.BaseEntity
 
 @Composable
 fun MovieSearchCompose(
-    items: List<BaseModel>,
+    items: List<BaseEntity>,
     onSearch: (String) -> Unit,
     onLoadMore: () -> Unit,
     onRefresh: () -> Unit

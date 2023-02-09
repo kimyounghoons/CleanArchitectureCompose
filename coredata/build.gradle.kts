@@ -36,6 +36,6 @@ android {
 
 dependencies {
     implementation(Libs.retrofit)
-    implementation(project(path = ":nativeCore", configuration = "default"))
+    implementation(Libs.gson)
     implementation(project(path = ":coredomain", configuration = "default"))
 }

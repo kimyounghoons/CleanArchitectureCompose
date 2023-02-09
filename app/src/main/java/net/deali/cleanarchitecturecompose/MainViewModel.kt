@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import net.deali.core.ui.uimodel.ErrorModel
+import net.deali.coredomain.Resource
+import net.deali.coredomain.entity.BaseEntity
+import net.deali.coredomain.entity.ErrorEntity
 import net.deali.domain.usecase.GetMovieSearchUseCase
 import net.deali.domain.usecase.GetPopularMovieUseCase
-import net.deali.nativecore.BaseModel
-import net.deali.nativecore.Resource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,8 +22,8 @@ class MainViewModel @Inject constructor(
     val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
 
-    private val _popularItems = MutableLiveData<List<BaseModel>>()
-    val popularItems: LiveData<List<BaseModel>> = _popularItems
+    private val _popularItems = MutableLiveData<List<BaseEntity>>()
+    val popularItems: LiveData<List<BaseEntity>> = _popularItems
     fun onMorePopularMoviesClick() {
         _event.value = Event.GoToPopularMoviesEvent
     }
@@ -39,10 +39,10 @@ class MainViewModel @Inject constructor(
 
                 }
                 is Resource.Success -> {
-                    _popularItems.value = result.model.movies
+                    _popularItems.value = result.model.movieEntities
                 }
                 is Resource.Fail -> {
-                    _popularItems.value = listOf(ErrorModel(result.exception))
+                    _popularItems.value = listOf(ErrorEntity(result.exception))
                 }
             }
         }.launchIn(viewModelScope)

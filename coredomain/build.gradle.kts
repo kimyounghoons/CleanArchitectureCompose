@@ -9,6 +9,5 @@ java {
 }
 
 dependencies {
-    implementation(project(path = ":nativeCore",configuration = "default"))
     implementation(Libs.kotlinXCoroutineCore)
 }

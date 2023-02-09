@@ -2,7 +2,7 @@ package net.deali.coredomain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import net.deali.nativecore.Resource
+import net.deali.coredomain.entity.BaseEntity
 
 open class BaseUseCase {
     fun <response : BaseEntity> callApi(

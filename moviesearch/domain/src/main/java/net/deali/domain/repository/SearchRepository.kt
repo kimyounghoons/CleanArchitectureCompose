@@ -1,7 +1,7 @@
 package net.deali.domain.repository
 
+import net.deali.coredomain.Resource
 import net.deali.domain.entity.MovieSearchEntity
-import net.deali.nativecore.Resource
 
 interface SearchRepository {
     suspend fun getSearchMovies(

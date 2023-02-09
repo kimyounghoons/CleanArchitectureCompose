@@ -7,12 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import net.deali.cleanarchitecturecompose.R
 import net.deali.core.ui.compose.CommonTitle
-import net.deali.nativecore.BaseModel
+import net.deali.coredomain.entity.BaseEntity
 import net.deali.presentation.ui.LazyRowPopularMoviesCompose
 
 @Composable
 fun MainCompose(
-    items: List<BaseModel>,
+    items: List<BaseEntity>,
     onMorePopularMoviesClick: () -> Unit,
     onMoreNowPlayingMoviesClick: () -> Unit
 ) {

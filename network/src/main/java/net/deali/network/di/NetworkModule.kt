@@ -19,7 +19,7 @@ import javax.inject.Singleton
 object NetworkModule {
     @Qualifier
     @Retention
-    annotation class TmdbHeaderInterceptor
+    annotation class TmdbCommonQueryInterceptor
 
     @Qualifier
     @Retention
@@ -27,8 +27,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    @TmdbHeaderInterceptor
-    fun provideHeaderInterceptor(): Interceptor {
+    @TmdbCommonQueryInterceptor
+    fun provideCommonQueryInterceptor(): Interceptor {
         return CommonQueryInterceptor()
     }
 
@@ -49,7 +49,7 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient(
         @LoggingInterceptor loggingInterceptor: Interceptor,
-        @TmdbHeaderInterceptor headerInterceptor: Interceptor
+        @TmdbCommonQueryInterceptor headerInterceptor: Interceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)

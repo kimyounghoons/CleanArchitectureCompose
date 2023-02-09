@@ -14,6 +14,9 @@ object Versions {
 
     const val androidxViewModelKtx = "2.5.0"
     const val androidxLifecycleLiveData = "2.4.0"
+    const val androidxLifecycleLifecycleRuntimeKtx = "2.5.1"
+    const val androidxActivityCompose = "1.6.1"
+    const val androidXComposeMaterial = "1.3.1"
 
     const val retrofit = "2.9.0"
     const val okHttp = "4.10.0"
@@ -62,13 +65,27 @@ object Libs {
     //AndroidX
     const val androidxAppcompat = "androidx.appcompat:appcompat:${Versions.androidxAppCompat}"
     const val androidxCoreKtx = "androidx.core:core-ktx:${Versions.androidxCoreKtx}"
-    const val androidxRecyclerView = "androidx.recyclerview:recyclerview:${Versions.androidxRecyclerView}"
-    const val androidxLifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.androidxLifecycleExtensions}"
+    const val androidxRecyclerView =
+        "androidx.recyclerview:recyclerview:${Versions.androidxRecyclerView}"
+    const val androidxLifecycleExtensions =
+        "androidx.lifecycle:lifecycle-extensions:${Versions.androidxLifecycleExtensions}"
     const val androidxHiltCompiler = "androidx.hilt:hilt-compiler:${Versions.androidxHiltCompiler}"
-    const val androidxViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidxViewModelKtx}"
-    const val androidxLifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidxLifecycleLiveData}"
+    const val androidxViewModelKtx =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidxViewModelKtx}"
+    const val androidxLifecycleLiveData =
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidxLifecycleLiveData}"
+    const val androidxLifecycleLifecycleRuntimeKtx =
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.androidxLifecycleLifecycleRuntimeKtx}"
+    const val androidxActivityCompose =
+        "androidx.activity:activity-compose:${Versions.androidxActivityCompose}"
+    const val androidXComposeUi = "androidx.compose.ui:ui:${Versions.compose}"
+    const val androidXComposeUiToolingPreview =
+        "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+    const val androidXComposeMaterial =
+        "androidx.compose.material:material:${Versions.androidXComposeMaterial}"
 
-    const val kotlinStdLibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinStdLibJdk7}"
+    const val kotlinStdLibJdk7 =
+        "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinStdLibJdk7}"
 
     const val androidMaterial = "com.google.android.material:material:${Versions.androidMaterial}"
 
@@ -104,6 +121,7 @@ object Libs {
     const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
     const val accompanistSwipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
 
+
     //Test
     const val testJunit = "junit:junit:${Versions.testJunit}"
     const val androidXTestRunner = "androidx.test:runner:${Versions.androidXTestRunner}"
@@ -113,13 +131,21 @@ object Libs {
     const val androidXArchCoreTesting ="androidx.arch.core:core-testing:${Versions.androidXArchCoreTesting}"
 
     const val testPowerMockCore = "org.powermock:powermock-core:${Versions.powerMock}"
-    const val testPowerMockModuleJunit = "org.powermock:powermock-module-junit4:${Versions.powerMock}"
+    const val testPowerMockModuleJunit =
+        "org.powermock:powermock-module-junit4:${Versions.powerMock}"
     const val testPowerMockApi = "org.powermock:powermock-api-mockito2:${Versions.powerMock}"
 
     const val testExtJunit = "androidx.test.ext:junit:${Versions.testExtJunit}"
     const val androidXTestRules = "androidx.test:rules:${Versions.androidXTestRules}"
     const val testEspresso = "androidx.test.espresso:espresso-core:${Versions.testEspresso}"
-    const val testEspressoContrib = "androidx.test.espresso:espresso-contrib:${Versions.testEspresso}"
-    const val testKotlinCoroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.testKotlinCoroutineTest}"
+    const val testEspressoContrib =
+        "androidx.test.espresso:espresso-contrib:${Versions.testEspresso}"
+    const val testKotlinCoroutineTest =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.testKotlinCoroutineTest}"
+    const val testAndroidXComposeUiTestJunit =
+        "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+    const val testAndroidXComposeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+    const val testAndroidXComposeUiTestManifest =
+        "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 
 }

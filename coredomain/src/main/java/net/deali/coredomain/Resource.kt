@@ -1,6 +1,4 @@
-package net.deali.nativecore
-
-import net.deali.nativecore.exception.ApiException
+package net.deali.coredomain
 
 sealed class Resource<out T> {
     class Success<T>(val model: T) : Resource<T>()

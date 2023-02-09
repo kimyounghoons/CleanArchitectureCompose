@@ -1,4 +1,4 @@
-package net.deali.nativecore.exception
+package net.deali.coredomain
 
 sealed class ApiException {
     object NetworkException : ApiException()

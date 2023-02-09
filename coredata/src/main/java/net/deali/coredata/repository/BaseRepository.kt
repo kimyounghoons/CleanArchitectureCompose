@@ -2,9 +2,9 @@ package net.deali.coredata.repository
 
 import net.deali.coredata.mapper.Mapper
 import net.deali.coredata.response.BaseResponse
-import net.deali.coredomain.BaseEntity
-import net.deali.nativecore.Resource
-import net.deali.nativecore.exception.ApiException
+import net.deali.coredomain.ApiException
+import net.deali.coredomain.Resource
+import net.deali.coredomain.entity.BaseEntity
 import retrofit2.HttpException
 import java.io.IOException
 

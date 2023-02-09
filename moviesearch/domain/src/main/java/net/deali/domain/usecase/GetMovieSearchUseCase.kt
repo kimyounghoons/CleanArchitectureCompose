@@ -2,9 +2,9 @@ package net.deali.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import net.deali.coredomain.BaseUseCase
+import net.deali.coredomain.Resource
 import net.deali.domain.entity.MovieSearchEntity
 import net.deali.domain.repository.SearchRepository
-import net.deali.nativecore.Resource
 import javax.inject.Inject
 import javax.inject.Singleton
 

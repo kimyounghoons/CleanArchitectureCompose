@@ -1,4 +1,4 @@
-package net.deali.presentation.ui
+package net.deali.core.ui.compose
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,18 +11,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import net.deali.core.ui.compose.InfiniteListHandler
-import net.deali.core.ui.compose.VerticalItem
-import net.deali.core.ui.uimodel.EmptyModel
-import net.deali.core.ui.uimodel.ErrorModel
-import net.deali.coredomain.Movie
-import net.deali.nativecore.BaseModel
-import net.deali.nativecore.exception.ApiException
+import net.deali.coredomain.ApiException
+import net.deali.coredomain.entity.BaseEntity
+import net.deali.coredomain.entity.EmptyEntity
+import net.deali.coredomain.entity.ErrorEntity
+import net.deali.coredomain.entity.MovieEntity
 
 @Composable
 fun LazyColumnMoviesCompose(
     modifier: Modifier = Modifier,
-    items: List<BaseModel>,
+    items: List<BaseEntity>,
     onLoadMore: () -> Unit,
     onRefresh: () -> Unit,
 ) {
@@ -39,10 +37,10 @@ fun LazyColumnMoviesCompose(
         ) {
             itemsIndexed(items) { index, item ->
                 when (item) {
-                    is Movie -> {
+                    is MovieEntity -> {
                         VerticalItem(item)
                     }
-                    is EmptyModel -> {
+                    is EmptyEntity -> {
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -55,7 +53,7 @@ fun LazyColumnMoviesCompose(
                             )
                         }
                     }
-                    is ErrorModel -> {
+                    is ErrorEntity -> {
                         val errorMsg = when (val exception = item.exception) {
                             is ApiException.HttpException -> "에러코드: ${exception.code} 입니다."
                             ApiException.NetworkException -> "인터넷 연결을 확인해주세요."

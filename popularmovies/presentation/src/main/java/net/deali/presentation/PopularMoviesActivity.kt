@@ -13,8 +13,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import net.deali.core.BaseActivity
+import net.deali.core.ui.compose.LazyColumnMoviesCompose
 import net.deali.core.ui.compose.SecondScaffold
-import net.deali.presentation.ui.LazyColumnMoviesCompose
 
 @AndroidEntryPoint
 class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {

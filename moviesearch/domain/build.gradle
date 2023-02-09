@@ -9,7 +9,6 @@ java {
 }
 
 dependencies {
-    implementation project(path: ':nativeCore')
     api project(path: ':coredomain')
     implementation Libs.kotlinXCoroutineCore
     implementation Libs.javaxInject
