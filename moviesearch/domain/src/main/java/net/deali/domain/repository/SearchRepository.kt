@@ -1,6 +1,7 @@
 package net.deali.domain.repository
 
 import net.deali.domain.entity.MovieSearchEntity
+import net.deali.nativecore.Resource
 
 interface SearchRepository {
     suspend fun getSearchMovies(
@@ -8,5 +9,5 @@ interface SearchRepository {
         page: Int,
         includeAdult: Boolean?,
         region: String?,
-    ): MovieSearchEntity
+    ): Resource<MovieSearchEntity>
 }

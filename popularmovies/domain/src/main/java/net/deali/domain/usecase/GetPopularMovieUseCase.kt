@@ -12,8 +12,9 @@ import javax.inject.Singleton
 class GetPopularMovieUseCase @Inject constructor(
     private val repository: PopularRepository
 ) : BaseUseCase() {
-    operator fun invoke(page: Int): Flow<Resource<out PopularMovieEntity>> = callApi {
+    operator fun invoke(page: Int): Flow<Resource<PopularMovieEntity>> = callApi {
         repository.getPopularMoives(page)
     }
+
 
 }
