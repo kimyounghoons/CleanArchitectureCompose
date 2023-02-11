@@ -1,0 +1,77 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace = "net.deali.nowplaying.presentation"
+    compileSdk = Versions.targetSDK
+
+    defaultConfig {
+        minSdk = Versions.minSDK
+        targetSdk = Versions.targetSDK
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0"
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation project(path: ':core')
+    implementation project(path: ':nowplaying:domain')
+    implementation project(path: ':nowplaying:data')
+
+    implementation(Libs.hiltAndroid)
+    kapt Libs.hiltCompiler
+    kapt Libs.androidxHiltCompiler
+
+    implementation(Libs.composeRuntimeLiveData)
+    implementation(Libs.coilCompose)
+    implementation(Libs.androidxLifecycleLifecycleRuntimeKtx)
+    implementation(Libs.androidxActivityCompose)
+    implementation(Libs.androidXComposeUi)
+    implementation(Libs.androidXComposeUiToolingPreview)
+    implementation(Libs.androidXComposeMaterial)
+    implementation(Libs.accompanistPager)
+    implementation (Libs.accompanistSwipeRefresh)
+    implementation (Libs.composeUiUtil)
+    implementation (Libs.constraintLayoutCompose)
+
+    androidTestImplementation(Libs.testAndroidXComposeUiTestJunit)
+    debugImplementation(Libs.testAndroidXComposeUiTooling)
+    debugImplementation(Libs.testAndroidXComposeUiTestManifest)
+
+    implementation(Libs.androidxViewModelKtx)
+
+    implementation(Libs.androidxCoreKtx)
+    implementation(Libs.androidxAppcompat)
+    implementation(Libs.androidMaterial)
+    testImplementation(Libs.testJunit)
+    androidTestImplementation(Libs.testExtJunit)
+    androidTestImplementation(Libs.testEspresso)
+}

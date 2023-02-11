@@ -17,6 +17,7 @@ object Versions {
     const val androidxLifecycleLifecycleRuntimeKtx = "2.5.1"
     const val androidxActivityCompose = "1.6.1"
     const val androidXComposeMaterial = "1.3.1"
+    const val constraintLayoutCompose = "1.0.1"
 
     const val retrofit = "2.9.0"
     const val okHttp = "4.10.0"
@@ -83,6 +84,10 @@ object Libs {
         "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val androidXComposeMaterial =
         "androidx.compose.material:material:${Versions.androidXComposeMaterial}"
+    const val composeUiUtil = "androidx.compose.ui:ui-util:${Versions.compose}"
+    const val constraintLayoutCompose =
+        "androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayoutCompose}"
+
 
     const val kotlinStdLibJdk7 =
         "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinStdLibJdk7}"
@@ -99,16 +104,20 @@ object Libs {
     const val javaxInject = "javax.inject:javax.inject:1"
 
 
-    const val kotlinXCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinXCoroutinesAndroid}"
-    const val kotlinXCoroutineCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinXCoroutineCore}"
+    const val kotlinXCoroutinesAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinXCoroutinesAndroid}"
+    const val kotlinXCoroutineCore =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinXCoroutineCore}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitConvertGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    const val retrofitConvertSimpleXml = "com.squareup.retrofit2:converter-simplexml:${Versions.retrofit}"
+    const val retrofitConvertSimpleXml =
+        "com.squareup.retrofit2:converter-simplexml:${Versions.retrofit}"
     const val retrofitRxjavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
 
-    const val okHttp  = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
-    const val okHttp3LoggingIntercepter = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
+    const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val okHttp3LoggingIntercepter =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
 
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
 
@@ -117,10 +126,14 @@ object Libs {
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
 
     //Compose
-    const val composeRuntimeLiveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
+    const val composeRuntimeLiveData =
+        "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
     const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
-    const val accompanistSwipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
-
+    const val accompanistSwipeRefresh =
+        "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}"
+    const val accompanistPager = "com.google.accompanist:accompanist-pager:${Versions.accompanist}"
+    const val accompanistPagerIndicators =
+        "com.google.accompanist:accompanist-pager-indicators:${Versions.accompanist}"
 
     //Test
     const val testJunit = "junit:junit:${Versions.testJunit}"
@@ -128,7 +141,8 @@ object Libs {
 
     const val testMockito = "org.mockito:mockito-core:${Versions.testMockito}"
     const val testMockitoInline = "org.mockito:mockito-inline:${Versions.testMockitoInline}"
-    const val androidXArchCoreTesting ="androidx.arch.core:core-testing:${Versions.androidXArchCoreTesting}"
+    const val androidXArchCoreTesting =
+        "androidx.arch.core:core-testing:${Versions.androidXArchCoreTesting}"
 
     const val testPowerMockCore = "org.powermock:powermock-core:${Versions.powerMock}"
     const val testPowerMockModuleJunit =

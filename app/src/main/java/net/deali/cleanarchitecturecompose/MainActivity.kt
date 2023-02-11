@@ -1,7 +1,6 @@
 package net.deali.cleanarchitecturecompose
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Icon
@@ -18,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.deali.cleanarchitecturecompose.ui.MainCompose
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.MainScaffold
+import net.deali.nowplaying.presentation.NowPlayingMoviesActivity
 import net.deali.presentation.MovieSearchActivity
 import net.deali.presentation.PopularMoviesActivity
 
@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initObserver()
-        vm.fetchPopularMovies()
+        vm.onRefresh()
     }
 
     private fun initObserver() {
@@ -38,8 +38,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 MainViewModel.Event.GoToPopularMoviesEvent -> {
                     PopularMoviesActivity.open(this)
                 }
-                MainViewModel.Event.GoToNowPlayingMoviesEvent ->{
-                    Toast.makeText(this, "작업중입니다.",Toast.LENGTH_SHORT).show()
+                MainViewModel.Event.GoToNowPlayingMoviesEvent -> {
+                    NowPlayingMoviesActivity.open(this)
                 }
             }
         }
@@ -63,10 +63,15 @@ class MainActivity : BaseActivity<MainViewModel>() {
                     onRefresh = vm::onRefresh
                 ) {
                     val popularItems by vm.popularItems.observeAsState(listOf())
+                    val nowPlayingItems by vm.nowPlayingItems.observeAsState(listOf())
+
                     MainCompose(
-                        items = popularItems,
-                        onMorePopularMoviesClick = vm::onMorePopularMoviesClick,
-                        onMoreNowPlayingMoviesClick = vm::onMoreNowPlayingMoviesClick
+                        popularMovies = popularItems,
+                        nowPlayingMovies = nowPlayingItems,
+                        onPopularMoviesMoreClick = vm::onMorePopularMoviesClick,
+                        onPopularMoviesRefreshClick = vm::onPopularMoviesRefreshClick,
+                        onNowPlayingMoviesMoreClick = vm::onMoreNowPlayingMoviesClick,
+                        onNowPlayingMoviesRefreshClick = vm::onNowPlayingMoviesRefreshClick
                     )
                 }
             },

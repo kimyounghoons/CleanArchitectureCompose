@@ -10,13 +10,17 @@ import androidx.compose.ui.res.stringResource
 import net.deali.cleanarchitecturecompose.R
 import net.deali.core.ui.compose.CommonTitle
 import net.deali.coredomain.entity.BaseEntity
+import net.deali.nowplaying.presentation.ui.LazyRowNowPlayingMoviesCompose
 import net.deali.presentation.ui.LazyRowPopularMoviesCompose
 
 @Composable
 fun MainCompose(
-    items: List<BaseEntity>,
-    onMorePopularMoviesClick: () -> Unit,
-    onMoreNowPlayingMoviesClick: () -> Unit
+    popularMovies: List<BaseEntity>,
+    nowPlayingMovies: List<BaseEntity>,
+    onPopularMoviesMoreClick: () -> Unit,
+    onPopularMoviesRefreshClick : ()->Unit,
+    onNowPlayingMoviesMoreClick: () -> Unit,
+    onNowPlayingMoviesRefreshClick : ()->Unit,
 ) {
     Column(
         modifier = Modifier
@@ -25,12 +29,13 @@ fun MainCompose(
     ) {
         CommonTitle(
             title = stringResource(id = R.string.popular_movie),
-            onClick = onMorePopularMoviesClick
+            onClick = onPopularMoviesMoreClick
         )
-        LazyRowPopularMoviesCompose(items = items)
+        LazyRowPopularMoviesCompose(items = popularMovies , onRefreshClick= onPopularMoviesRefreshClick)
         CommonTitle(
             title = stringResource(id = R.string.now_playing),
-            onClick = onMoreNowPlayingMoviesClick
+            onClick = onNowPlayingMoviesMoreClick
         )
+        LazyRowNowPlayingMoviesCompose(nowPlayingMovies, onRefreshClick =onNowPlayingMoviesRefreshClick)
     }
 }

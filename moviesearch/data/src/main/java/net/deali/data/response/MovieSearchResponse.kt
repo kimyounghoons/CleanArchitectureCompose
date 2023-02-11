@@ -12,7 +12,7 @@ data class MovieSearchResponse(
     val totalPages: Int? = null,
     @SerializedName("total_results")
     val totalResults: Int? = null
-) : net.deali.coredata.response.BaseResponse() {
+) : BaseResponse() {
     data class Result(
         @SerializedName("adult")
         val adult: Boolean? = null,

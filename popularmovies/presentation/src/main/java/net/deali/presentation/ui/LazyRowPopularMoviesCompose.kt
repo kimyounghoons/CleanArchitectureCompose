@@ -1,5 +1,6 @@
 package net.deali.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,7 +17,8 @@ import net.deali.coredomain.entity.MovieEntity
 
 @Composable
 fun LazyRowPopularMoviesCompose(
-    items: List<BaseEntity>
+    items: List<BaseEntity>,
+    onRefreshClick: () -> Unit
 ) {
     LazyRow(
         modifier = Modifier
@@ -43,7 +45,8 @@ fun LazyRowPopularMoviesCompose(
                     ApiException.UnknownException -> "알 수 없는 오류가 발생했습니다.\n다시 시도 해주세요."
                 }
                 Box(
-                    modifier = Modifier.fillParentMaxSize(),
+                    modifier = Modifier.fillParentMaxSize()
+                        .clickable(onClick = onRefreshClick),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = errorMsg)
