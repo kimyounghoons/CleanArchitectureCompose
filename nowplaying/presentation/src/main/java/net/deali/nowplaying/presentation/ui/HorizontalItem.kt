@@ -1,5 +1,6 @@
 package net.deali.nowplaying.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,11 +24,16 @@ import coil.compose.AsyncImage
 import net.deali.coredomain.entity.MovieEntity
 
 @Composable
-fun HorizontalItem(item: MovieEntity) {
+fun HorizontalItem(item: MovieEntity, onGoToDetail: (movieEntity: MovieEntity) -> Unit) {
     ConstraintLayout(
         modifier = Modifier
             .width(280.dp)
             .fillMaxHeight()
+            .clickable(
+                onClick = {
+                    onGoToDetail(item)
+                }
+            )
     ) {
         val (imageRef, titleRef, overViewRef) = createRefs()
 
@@ -87,6 +93,7 @@ fun HorizontalItemPreview() {
     HorizontalItem(
         MovieEntity(
             title = "영화제목", imageUrl = "", isAdult = false
-        )
+        ),
+        onGoToDetail = {}
     )
 }

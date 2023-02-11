@@ -26,7 +26,8 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun LazyRowNowPlayingMoviesCompose(
-    items: List<BaseEntity>, onRefreshClick: () -> Unit
+    items: List<BaseEntity>, onRefreshClick: () -> Unit,
+    onGoToDetail: (movieEntity: MovieEntity) -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -76,7 +77,7 @@ fun LazyRowNowPlayingMoviesCompose(
 
         BoxWithConstraints(modifier = itemModifier(index)) {
             if (item is MovieEntity) {
-                HorizontalItem(item)
+                HorizontalItem(item, onGoToDetail)
             } else if (item is EmptyEntity) {
                 Box(
                     modifier = Modifier

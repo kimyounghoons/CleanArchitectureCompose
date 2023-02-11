@@ -13,6 +13,7 @@ class PopularMovieMapper @Inject constructor() : Mapper<PopularMovieResponse, Po
             totalPageCount = totalPages ?: 1,
             movieEntities = results?.map {
                 MovieEntity(
+                    id = it.id ?: 0,
                     title = it.title ?: "",
                     isAdult = it.adult ?: false,
                     imageUrl = it.posterPath?.resizeImage(300) ?: "",

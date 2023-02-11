@@ -60,6 +60,7 @@ dependencies {
     implementation project(path: ':moviesearch:domain')
     implementation project(path: ':nowplaying:presentation')
     implementation project(path: ':nowplaying:domain')
+    implementation project(path: ':detail:presentation')
     implementation Libs.hiltAndroid
 
     kapt Libs.hiltCompiler

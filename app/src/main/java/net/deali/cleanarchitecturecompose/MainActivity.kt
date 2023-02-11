@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.deali.cleanarchitecturecompose.ui.MainCompose
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.MainScaffold
+import net.deali.detail.presentation.MovieDetailActivity
 import net.deali.nowplaying.presentation.NowPlayingMoviesActivity
 import net.deali.presentation.MovieSearchActivity
 import net.deali.presentation.PopularMoviesActivity
@@ -40,6 +41,13 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 }
                 MainViewModel.Event.GoToNowPlayingMoviesEvent -> {
                     NowPlayingMoviesActivity.open(this)
+                }
+                is MainViewModel.Event.GoToDetailEvent -> {
+                    MovieDetailActivity.open(
+                        activity = this,
+                        movieId = event.movieId,
+                        title = event.title
+                    )
                 }
             }
         }
@@ -71,7 +79,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
                         onPopularMoviesMoreClick = vm::onMorePopularMoviesClick,
                         onPopularMoviesRefreshClick = vm::onPopularMoviesRefreshClick,
                         onNowPlayingMoviesMoreClick = vm::onMoreNowPlayingMoviesClick,
-                        onNowPlayingMoviesRefreshClick = vm::onNowPlayingMoviesRefreshClick
+                        onNowPlayingMoviesRefreshClick = vm::onNowPlayingMoviesRefreshClick,
+                        onGoToDetail = vm::goToDetail
                     )
                 }
             },

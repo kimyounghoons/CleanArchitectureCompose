@@ -18,7 +18,8 @@ import net.deali.coredomain.entity.MovieEntity
 @Composable
 fun LazyRowPopularMoviesCompose(
     items: List<BaseEntity>,
-    onRefreshClick: () -> Unit
+    onRefreshClick: () -> Unit,
+    onGoToDetail: (movieEntity: MovieEntity) -> Unit
 ) {
     LazyRow(
         modifier = Modifier
@@ -30,7 +31,7 @@ fun LazyRowPopularMoviesCompose(
 
         itemsIndexed(items) { index, item ->
             if (item is MovieEntity) {
-                HorizontalItem(item)
+                HorizontalItem(item, onGoToDetail)
             } else if (item is EmptyEntity) {
                 Box(
                     modifier = Modifier.fillParentMaxSize(),

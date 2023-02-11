@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import net.deali.coredomain.Resource
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.ErrorEntity
+import net.deali.coredomain.entity.MovieEntity
 import net.deali.domain.usecase.GetPopularMovieUseCase
 import net.deali.nowplaying.domain.usecase.GetNowPlayingUseCase
 import javax.inject.Inject
@@ -89,9 +90,17 @@ class MainViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+    fun goToDetail(movieEntity: MovieEntity) {
+        _event.value = Event.GoToDetailEvent(
+            movieEntity.id,
+            movieEntity.title
+        )
+    }
+
     sealed class Event {
         object GoToPopularMoviesEvent : Event()
         object GoToNowPlayingMoviesEvent : Event()
+        class GoToDetailEvent(val movieId: Int, val title: String) : Event()
     }
 
 }

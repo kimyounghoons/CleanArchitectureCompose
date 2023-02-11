@@ -6,6 +6,9 @@ import retrofit2.http.Query
 
 interface SearchApiService {
 
+    /*
+    * API 정보 : https://developers.themoviedb.org/3/search/search-movies
+    * */
     @GET("/3/search/movie")
     suspend fun getMovieSearch(
         @Query("query") query: String,

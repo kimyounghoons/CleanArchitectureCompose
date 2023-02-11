@@ -1,5 +1,6 @@
 package net.deali.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -16,11 +17,12 @@ import coil.compose.AsyncImage
 import net.deali.coredomain.entity.MovieEntity
 
 @Composable
-fun HorizontalItem(item: MovieEntity) {
+fun HorizontalItem(item: MovieEntity, onGoToDetail: (movieEntity: MovieEntity) -> Unit) {
     Column(
         modifier = Modifier
             .width(108.dp)
-            .fillMaxHeight(),
+            .fillMaxHeight()
+            .clickable(onClick = { onGoToDetail(item) }),
     ) {
 
         AsyncImage(
@@ -53,6 +55,7 @@ fun HorizontalItemPreview() {
             title = "영화제목",
             imageUrl = "",
             isAdult = false
-        )
+        ),
+        onGoToDetail = {}
     )
 }
