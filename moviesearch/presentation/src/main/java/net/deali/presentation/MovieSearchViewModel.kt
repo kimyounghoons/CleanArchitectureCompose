@@ -2,22 +2,23 @@ package net.deali.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import net.deali.core.BaseViewModel
 import net.deali.coredomain.Resource
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
+import net.deali.coredomain.entity.MovieEntity
 import net.deali.domain.usecase.GetMovieSearchUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieSearchViewModel @Inject constructor(
     val getMovieSearchUseCase: GetMovieSearchUseCase
-) : ViewModel() {
+) : BaseViewModel() {
     private val _items = MutableLiveData<List<BaseEntity>>(listOf())
     val items: LiveData<List<BaseEntity>> = _items
 
@@ -68,5 +69,14 @@ class MovieSearchViewModel @Inject constructor(
         this.searchText = searchText
         onLoadMore()
     }
+
+    fun onGoToDetail(movieEntity: MovieEntity) {
+        _event.value = GoToDetailEvent(
+            movieEntity.id,
+            movieEntity.title
+        )
+    }
+
+    class GoToDetailEvent(val movieId: Int, val title: String) : Event()
 
 }

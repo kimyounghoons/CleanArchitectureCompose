@@ -50,6 +50,8 @@ dependencies {
     implementation project(path: ':core')
     implementation project(path: ':popularmovies:domain')
     implementation project(path: ':popularmovies:data')
+    implementation project(path: ':navigator')
+    
     implementation Libs.composeRuntimeLiveData
     implementation Libs.coilCompose
     implementation Libs.hiltAndroid

@@ -1,6 +1,6 @@
 package net.deali.core.ui.compose
 
-import android.graphics.Movie
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -18,11 +18,16 @@ import coil.compose.AsyncImage
 import net.deali.coredomain.entity.MovieEntity
 
 @Composable
-fun VerticalItem(item: MovieEntity) {
+fun VerticalItem(item: MovieEntity, onGoToDetail: (MovieEntity) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(148.dp),
+            .height(148.dp)
+            .clickable(
+                onClick = {
+                    onGoToDetail.invoke(item)
+                }
+            ),
         shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.surface,
         elevation = 2.dp
@@ -74,6 +79,7 @@ fun ItemPreview() {
             isAdult = false,
             releaseDate = "2023-02-12",
             overview = "영화 설명 ~~~~",
-        )
+        ),
+        onGoToDetail = {}
     )
 }

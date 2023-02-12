@@ -16,6 +16,7 @@ import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
 import net.deali.coredomain.entity.MovieEntity
+import kotlin.reflect.KFunction1
 
 @Composable
 fun LazyColumnMoviesCompose(
@@ -23,6 +24,7 @@ fun LazyColumnMoviesCompose(
     items: List<BaseEntity>,
     onLoadMore: () -> Unit,
     onRefresh: () -> Unit,
+    onGoToDetail: (movieEntity: MovieEntity) -> Unit
 ) {
     val listState = rememberLazyListState()
     BoxWithConstraints(
@@ -38,7 +40,7 @@ fun LazyColumnMoviesCompose(
             itemsIndexed(items) { index, item ->
                 when (item) {
                     is MovieEntity -> {
-                        VerticalItem(item)
+                        VerticalItem(item,onGoToDetail)
                     }
                     is EmptyEntity -> {
                         Box(

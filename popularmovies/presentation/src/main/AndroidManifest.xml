@@ -7,6 +7,10 @@
                 android:exported="false"
                 android:label="@string/title_activity_popularmovies_activity"
                 android:theme="@style/Theme.CleanArchitectureCompose" />
+        <provider
+                android:name="net.deali.presentation.contentProvider.PopularMoviesContentProvider"
+                android:authorities="PopularMoviesContentProvider"
+                android:exported="false" />
     </application>
 
 </manifest>

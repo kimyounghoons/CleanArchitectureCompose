@@ -19,10 +19,10 @@ fun MainCompose(
     popularMovies: List<BaseEntity>,
     nowPlayingMovies: List<BaseEntity>,
     onPopularMoviesMoreClick: () -> Unit,
-    onPopularMoviesRefreshClick : ()->Unit,
+    onPopularMoviesRefreshClick: () -> Unit,
     onNowPlayingMoviesMoreClick: () -> Unit,
-    onNowPlayingMoviesRefreshClick : ()->Unit,
-    onGoToDetail : (movieEntity : MovieEntity)->Unit
+    onNowPlayingMoviesRefreshClick: () -> Unit,
+    onGoToDetail: (movieEntity: MovieEntity) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -34,8 +34,8 @@ fun MainCompose(
             onClick = onPopularMoviesMoreClick
         )
         LazyRowPopularMoviesCompose(
-            items = popularMovies ,
-            onRefreshClick= onPopularMoviesRefreshClick,
+            items = popularMovies,
+            onRefreshClick = onPopularMoviesRefreshClick,
             onGoToDetail = onGoToDetail
         )
         CommonTitle(
@@ -44,7 +44,7 @@ fun MainCompose(
         )
         LazyRowNowPlayingMoviesCompose(
             items = nowPlayingMovies,
-            onRefreshClick =onNowPlayingMoviesRefreshClick,
+            onRefreshClick = onNowPlayingMoviesRefreshClick,
             onGoToDetail = onGoToDetail
         )
     }

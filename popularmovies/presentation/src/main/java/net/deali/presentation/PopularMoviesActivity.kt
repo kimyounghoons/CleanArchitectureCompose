@@ -15,14 +15,36 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.LazyColumnMoviesCompose
 import net.deali.core.ui.compose.SecondScaffold
+import net.deali.navigator.Navigator
+import net.deali.navigator.NavigatorKey
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
     override val vm: PopularMoviesViewModel by viewModels()
 
+    @Inject
+    lateinit var navigator: Navigator
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm.onRefresh()
+    }
+
+    override fun initObserver() {
+        vm.event.observe(this) { event ->
+            when (event) {
+                is PopularMoviesViewModel.GoToDetailEvent -> {
+                    navigator.startActivity(
+                        this,
+                        NavigatorKey.MovieDetail,
+                        Bundle().apply {
+                            putInt(NavigatorKey.MovieDetail.KEY_MOVIE_ID, event.movieId)
+                            putString(NavigatorKey.MovieDetail.KEY_MOVIE_TITLE, event.title)
+                        }
+                    )
+                }
+            }
+        }
     }
 
     @Composable
@@ -43,7 +65,8 @@ class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
                 LazyColumnMoviesCompose(
                     items = items,
                     onLoadMore = onLoadMore,
-                    onRefresh = vm::onRefresh
+                    onRefresh = vm::onRefresh,
+                    onGoToDetail = vm::onGoToDetail
                 )
             }
         }

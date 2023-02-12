@@ -1,7 +1,5 @@
 package net.deali.detail.presentation
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,21 +33,6 @@ class MovieDetailActivity : BaseActivity<DetailViewModel>() {
                 state = rememberSwipeRefreshState(isRefreshing = false),
                 onRefresh = vm::onRefresh
             ) {
-            }
-        }
-    }
-
-    companion object {
-        fun open(
-            activity: Activity,
-            movieId: Int,
-            title: String
-        ) {
-            Intent(activity, MovieDetailActivity::class.java).apply {
-                putExtra(DetailViewModel.KEY_MOVIE_ID, movieId)
-                putExtra(DetailViewModel.KEY_MOVIE_TITLE, title)
-            }.let {
-                activity.startActivity(it)
             }
         }
     }

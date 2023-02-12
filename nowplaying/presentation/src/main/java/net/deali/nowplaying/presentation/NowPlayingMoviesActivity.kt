@@ -43,7 +43,8 @@ class NowPlayingMoviesActivity : BaseActivity<NowPlayingViewModel>() {
                 LazyColumnMoviesCompose(
                     items = items,
                     onLoadMore = onLoadMore,
-                    onRefresh = vm::onRefresh
+                    onRefresh = vm::onRefresh,
+                    onGoToDetail = vm::onGoToDetail
                 )
             }
         }

@@ -45,6 +45,7 @@ dependencies {
     implementation project(path: ':core')
     implementation project(path: ':nowplaying:domain')
     implementation project(path: ':nowplaying:data')
+    implementation project(path: ':navigator')
 
     implementation(Libs.hiltAndroid)
     kapt Libs.hiltCompiler

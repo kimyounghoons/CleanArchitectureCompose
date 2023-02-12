@@ -17,36 +17,43 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.deali.cleanarchitecturecompose.ui.MainCompose
 import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.MainScaffold
-import net.deali.detail.presentation.MovieDetailActivity
+import net.deali.navigator.Navigator
+import net.deali.navigator.NavigatorKey
 import net.deali.nowplaying.presentation.NowPlayingMoviesActivity
 import net.deali.presentation.MovieSearchActivity
 import net.deali.presentation.PopularMoviesActivity
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel>() {
 
     override val vm: MainViewModel by viewModels()
 
+    @Inject
+    lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initObserver()
         vm.onRefresh()
     }
 
-    private fun initObserver() {
+    override fun initObserver() {
         vm.event.observe(this) { event ->
             when (event) {
-                MainViewModel.Event.GoToPopularMoviesEvent -> {
+                MainViewModel.GoToPopularMoviesEvent -> {
                     PopularMoviesActivity.open(this)
                 }
-                MainViewModel.Event.GoToNowPlayingMoviesEvent -> {
+                MainViewModel.GoToNowPlayingMoviesEvent -> {
                     NowPlayingMoviesActivity.open(this)
                 }
-                is MainViewModel.Event.GoToDetailEvent -> {
-                    MovieDetailActivity.open(
-                        activity = this,
-                        movieId = event.movieId,
-                        title = event.title
+                is MainViewModel.GoToDetailEvent -> {
+                    navigator.startActivity(
+                        this,
+                        NavigatorKey.MovieDetail,
+                        Bundle().apply {
+                            putInt(NavigatorKey.MovieDetail.KEY_MOVIE_ID, event.movieId)
+                            putString(NavigatorKey.MovieDetail.KEY_MOVIE_TITLE, event.title)
+                        }
                     )
                 }
             }
@@ -80,7 +87,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
                         onPopularMoviesRefreshClick = vm::onPopularMoviesRefreshClick,
                         onNowPlayingMoviesMoreClick = vm::onMoreNowPlayingMoviesClick,
                         onNowPlayingMoviesRefreshClick = vm::onNowPlayingMoviesRefreshClick,
-                        onGoToDetail = vm::goToDetail
+                        onGoToDetail = vm::onGoToDetail
                     )
                 }
             },

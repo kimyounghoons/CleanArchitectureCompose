@@ -1,24 +1,26 @@
 package net.deali.detail.presentation
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import net.deali.core.BaseViewModel
 import net.deali.coredomain.Resource
 import net.deali.detail.domain.usecase.GetDetailUseCase
+import net.deali.navigator.NavigatorKey
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
     private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : BaseViewModel() {
     private val movieId =
-        savedStateHandle.get<Int>(KEY_MOVIE_ID) ?: throw IllegalStateException("must not be null")
+        savedStateHandle.get<Int>(NavigatorKey.MovieDetail.KEY_MOVIE_ID)
+            ?: throw IllegalStateException("must not be null")
 
-    val movieTitle = savedStateHandle.get<String>(KEY_MOVIE_TITLE)
+    val movieTitle = savedStateHandle.get<String>(NavigatorKey.MovieDetail.KEY_MOVIE_TITLE)
         ?: throw IllegalStateException("must not be null")
 
     var isLoading: Boolean = false
@@ -44,10 +46,5 @@ class DetailViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
-    }
-
-    companion object {
-        const val KEY_MOVIE_ID = "KEY_MOVIE_ID"
-        const val KEY_MOVIE_TITLE = "KEY_MOVIE_TITLE"
     }
 }
