@@ -1,1 +1,3 @@
-<resources></resources>
+<resources>
+    <string name="production_company">제작사</string>
+</resources>
