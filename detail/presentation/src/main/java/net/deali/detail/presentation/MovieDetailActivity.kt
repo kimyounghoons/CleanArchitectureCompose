@@ -11,11 +11,10 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import net.deali.core.BaseActivity
-import net.deali.core.ui.compose.SecondScaffold
 import net.deali.coredomain.entity.ErrorEntity
 import net.deali.detail.domain.entity.DetailEntity
+import net.deali.detail.presentation.ui.CollapsingToolbarParallaxEffect
 import net.deali.detail.presentation.ui.ErrorCompose
-import net.deali.detail.presentation.ui.MovieDetailCompose
 
 @AndroidEntryPoint
 class MovieDetailActivity : BaseActivity<DetailViewModel>() {
@@ -28,25 +27,22 @@ class MovieDetailActivity : BaseActivity<DetailViewModel>() {
 
     @Composable
     override fun ComposeContent() {
-        SecondScaffold(
-            title = vm.movieTitle,
-            onBackPressed = {
-                finish()
-            }
+        SwipeRefresh(
+            modifier = Modifier.fillMaxSize(),
+            state = rememberSwipeRefreshState(isRefreshing = false),
+            onRefresh = vm::onRefresh
         ) {
-            SwipeRefresh(
-                modifier = Modifier.fillMaxSize(),
-                state = rememberSwipeRefreshState(isRefreshing = false),
-                onRefresh = vm::onRefresh
-            ) {
-                val item by vm.item.observeAsState(DetailEntity())
-                when (item) {
-                    is DetailEntity -> {
-                        MovieDetailCompose(item as DetailEntity)
-                    }
-                    is ErrorEntity -> {
-                        ErrorCompose(errorEntity = item as ErrorEntity)
-                    }
+            val item by vm.item.observeAsState(DetailEntity())
+            when (item) {
+                is DetailEntity -> {
+                    CollapsingToolbarParallaxEffect(
+                        vm.movieTitle,
+                        item as DetailEntity,
+                        onBackPressed = { finish() }
+                    )
+                }
+                is ErrorEntity -> {
+                    ErrorCompose(errorEntity = item as ErrorEntity)
                 }
             }
         }

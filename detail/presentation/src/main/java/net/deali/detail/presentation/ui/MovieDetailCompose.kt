@@ -1,26 +1,31 @@
 package net.deali.detail.presentation.ui
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import net.deali.detail.domain.entity.DetailEntity
 
 @Composable
-fun MovieDetailCompose(item: DetailEntity) {
+fun MovieDetailCompose(
+    item: DetailEntity,
+    scroll: ScrollState,
+    headerHeight: Dp
+) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scroll)
     ) {
-        AsyncImage(
-            modifier = Modifier.fillMaxWidth(),
-            model = item.backdropUrl,
-            contentDescription = "backdropUrl"
-        )
+        Spacer(Modifier.height(headerHeight))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -34,6 +39,7 @@ fun MovieDetailCompose(item: DetailEntity) {
             Text(text = item.overView)
         }
         ProductionCompanyListCompose(item.productionCompanies)
+        Spacer(Modifier.height(1000.dp))
     }
 }
 
