@@ -1,10 +1,18 @@
 package net.deali.core.ui.compose
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,8 +23,8 @@ import net.deali.coredomain.ApiException
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
+import net.deali.coredomain.entity.LoadingEntity
 import net.deali.coredomain.entity.MovieEntity
-import kotlin.reflect.KFunction1
 
 @Composable
 fun LazyColumnMoviesCompose(
@@ -40,8 +48,9 @@ fun LazyColumnMoviesCompose(
             itemsIndexed(items) { index, item ->
                 when (item) {
                     is MovieEntity -> {
-                        VerticalItem(item,onGoToDetail)
+                        VerticalItem(item, onGoToDetail)
                     }
+
                     is EmptyEntity -> {
                         Box(
                             modifier = Modifier
@@ -55,6 +64,21 @@ fun LazyColumnMoviesCompose(
                             )
                         }
                     }
+
+                    is LoadingEntity -> {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(148.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(32.dp),
+                                color = Color.White
+                            )
+                        }
+                    }
+
                     is ErrorEntity -> {
                         val errorMsg = when (val exception = item.exception) {
                             is ApiException.HttpException -> "에러코드: ${exception.code} 입니다."

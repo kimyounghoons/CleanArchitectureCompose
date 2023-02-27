@@ -11,6 +11,7 @@ import net.deali.coredomain.Resource
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
+import net.deali.coredomain.entity.LoadingEntity
 import net.deali.coredomain.entity.MovieEntity
 import net.deali.domain.usecase.GetPopularMovieUseCase
 import javax.inject.Inject
@@ -23,39 +24,46 @@ class PopularMoviesViewModel @Inject constructor(
     val items: LiveData<List<BaseEntity>> = _items
 
     var pageCount: Int = 1
-    var isLoading: Boolean = false
     var isAllLoaded: Boolean = false
     fun onRefresh() {
-        if (isLoading) return
-        _items.value = listOf()
+        if (hasLoadingEntity()) return
         pageCount = 1
         isAllLoaded = false
         onLoadMore()
     }
 
+    private fun hasLoadingEntity() = _items.value?.any {
+        it is LoadingEntity
+    } ?: false
+
+    private fun getPureItems() = _items.value?.filterNot {
+        it is LoadingEntity
+    } ?: listOf()
+
     fun onLoadMore() {
-        if (isLoading || isAllLoaded) return
+        if (hasLoadingEntity() || isAllLoaded) return
 
         getPopularMovieUseCase(pageCount).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-                    isLoading = true
+                    _items.value = _items.value!! + LoadingEntity
                 }
+
                 is Resource.Success -> {
                     if (pageCount == 1 && result.model.movieEntities.isEmpty()) {
                         _items.value = listOf(EmptyEntity())
                     } else {
                         pageCount++
-                        _items.value = items.value!! + result.model.movieEntities
+                        _items.value = getPureItems() + result.model.movieEntities
                     }
-                    isLoading = false
+
                     if (pageCount >= result.model.totalPageCount) {
                         isAllLoaded = true
                     }
                 }
+
                 is Resource.Fail -> {
                     _items.value = listOf(ErrorEntity(result.exception))
-                    isLoading = false
                 }
             }
         }.launchIn(viewModelScope)
