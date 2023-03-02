@@ -10,6 +10,7 @@ import net.deali.core.BaseViewModel
 import net.deali.coredomain.Resource
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.ErrorEntity
+import net.deali.coredomain.entity.LoadingEntity
 import net.deali.coredomain.entity.MovieEntity
 import net.deali.domain.usecase.GetPopularMovieUseCase
 import net.deali.nowplaying.domain.usecase.GetNowPlayingUseCase
@@ -59,11 +60,13 @@ class MainViewModel @Inject constructor(
         getPopularMovieUseCase(1).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-
+                    _popularItems.value = listOf(LoadingEntity)
                 }
+
                 is Resource.Success -> {
                     _popularItems.value = result.model.movieEntities
                 }
+
                 is Resource.Fail -> {
                     _popularItems.value = listOf(ErrorEntity(result.exception))
                 }
@@ -75,11 +78,13 @@ class MainViewModel @Inject constructor(
         getNowPlayingUseCase(1).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-
+                    _nowPlayingItems.value = listOf(LoadingEntity)
                 }
+
                 is Resource.Success -> {
                     _nowPlayingItems.value = result.model.movieEntities
                 }
+
                 is Resource.Fail -> {
                     _nowPlayingItems.value = listOf(ErrorEntity(result.exception))
                 }

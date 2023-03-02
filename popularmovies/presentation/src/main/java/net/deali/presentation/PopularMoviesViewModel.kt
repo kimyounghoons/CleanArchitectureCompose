@@ -27,6 +27,7 @@ class PopularMoviesViewModel @Inject constructor(
     var isAllLoaded: Boolean = false
     fun onRefresh() {
         if (hasLoadingEntity()) return
+        _items.value = listOf()
         pageCount = 1
         isAllLoaded = false
         onLoadMore()
@@ -46,7 +47,7 @@ class PopularMoviesViewModel @Inject constructor(
         getPopularMovieUseCase(pageCount).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-                    _items.value = _items.value!! + LoadingEntity
+                    _items.value = getPureItems() + LoadingEntity
                 }
 
                 is Resource.Success -> {

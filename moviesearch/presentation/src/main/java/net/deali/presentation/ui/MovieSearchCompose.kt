@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import net.deali.core.ui.compose.LazyColumnMoviesCompose
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.MovieEntity
-import kotlin.reflect.KFunction1
 
 @Composable
 fun MovieSearchCompose(
@@ -15,7 +14,7 @@ fun MovieSearchCompose(
     onSearch: (String) -> Unit,
     onLoadMore: () -> Unit,
     onRefresh: () -> Unit,
-    onGoToDetail: KFunction1<MovieEntity, Unit>
+    onGoToDetail: (movieEntity: MovieEntity) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         SearchTextField(onSearch = onSearch)

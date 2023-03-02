@@ -3,11 +3,13 @@ package net.deali.nowplaying.presentation.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
@@ -20,6 +22,7 @@ import net.deali.coredomain.ApiException
 import net.deali.coredomain.entity.BaseEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
+import net.deali.coredomain.entity.LoadingEntity
 import net.deali.coredomain.entity.MovieEntity
 import kotlin.math.absoluteValue
 
@@ -101,6 +104,17 @@ fun LazyRowNowPlayingMoviesCompose(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = errorMsg)
+                }
+            } else if (item is LoadingEntity) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(32.dp),
+                        color = Color.White
+                    )
                 }
             }
         }
