@@ -39,11 +39,11 @@ class NowPlayingMoviesActivity : BaseActivity<NowPlayingViewModel>() {
                 onRefresh = vm::onRefresh
             ) {
                 val items by vm.items.observeAsState(listOf())
-                val onLoadMore = vm::onLoadMore
                 LazyColumnMoviesCompose(
                     items = items,
-                    onLoadMore = onLoadMore,
+                    onLoadMore = vm::onLoadMore,
                     onRefresh = vm::onRefresh,
+                    onBottomRefresh = vm::onBottomRefresh,
                     onGoToDetail = vm::onGoToDetail
                 )
             }

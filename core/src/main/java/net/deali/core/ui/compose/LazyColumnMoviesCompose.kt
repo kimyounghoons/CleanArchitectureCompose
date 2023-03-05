@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import net.deali.coredomain.ApiException
 import net.deali.coredomain.entity.BaseEntity
+import net.deali.coredomain.entity.BottomErrorEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
 import net.deali.coredomain.entity.LoadingEntity
@@ -32,6 +33,7 @@ fun LazyColumnMoviesCompose(
     items: List<BaseEntity>,
     onLoadMore: () -> Unit,
     onRefresh: () -> Unit,
+    onBottomRefresh: () -> Unit,
     onGoToDetail: (movieEntity: MovieEntity) -> Unit
 ) {
     val listState = rememberLazyListState()
@@ -95,6 +97,22 @@ fun LazyColumnMoviesCompose(
                             Text(
                                 modifier = Modifier.align(Alignment.Center),
                                 text = errorMsg,
+                                color = Color.White,
+                            )
+                        }
+                    }
+
+                    is BottomErrorEntity -> {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(148.dp)
+                                .clickable(onClick = onBottomRefresh),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                modifier = Modifier.align(Alignment.Center),
+                                text = "다시 시도",
                                 color = Color.White,
                             )
                         }

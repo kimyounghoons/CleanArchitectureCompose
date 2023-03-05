@@ -14,6 +14,7 @@ fun MovieSearchCompose(
     onSearch: (String) -> Unit,
     onLoadMore: () -> Unit,
     onRefresh: () -> Unit,
+    onBottomRefresh: () -> Unit,
     onGoToDetail: (movieEntity: MovieEntity) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -22,6 +23,7 @@ fun MovieSearchCompose(
             items = items,
             onLoadMore = onLoadMore,
             onRefresh = onRefresh,
+            onBottomRefresh = onBottomRefresh,
             onGoToDetail = onGoToDetail
         )
     }

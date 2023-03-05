@@ -66,6 +66,7 @@ class PopularMoviesActivity : BaseActivity<PopularMoviesViewModel>() {
                     items = items,
                     onLoadMore = onLoadMore,
                     onRefresh = vm::onRefresh,
+                    onBottomRefresh = vm::onBottomRefresh,
                     onGoToDetail = vm::onGoToDetail
                 )
             }

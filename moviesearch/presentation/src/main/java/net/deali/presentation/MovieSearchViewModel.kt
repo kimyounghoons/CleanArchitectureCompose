@@ -1,14 +1,12 @@
 package net.deali.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import net.deali.core.BaseViewModel
+import net.deali.core.LazyColumnViewModel
 import net.deali.coredomain.Resource
-import net.deali.coredomain.entity.BaseEntity
+import net.deali.coredomain.entity.BottomErrorEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
 import net.deali.coredomain.entity.LoadingEntity
@@ -19,27 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieSearchViewModel @Inject constructor(
     val getMovieSearchUseCase: GetMovieSearchUseCase
-) : BaseViewModel() {
-    private val _items = MutableLiveData<List<BaseEntity>>(listOf())
-    val items: LiveData<List<BaseEntity>> = _items
-
-    var pageCount: Int = 1
+) : LazyColumnViewModel() {
     var searchText: String = ""
-    var isAllLoaded: Boolean = false
 
-    fun onRefresh() {
+    override fun onRefresh() {
         onSearch(searchText)
     }
 
-    private fun hasLoadingEntity() = _items.value?.any {
-        it is LoadingEntity
-    } ?: false
-
-    private fun getPureItems() = _items.value?.filterNot {
-        it is LoadingEntity
-    } ?: listOf()
-
-    fun onLoadMore() {
+    override fun onLoadMore() {
         if (hasLoadingEntity() || isAllLoaded || searchText.isEmpty()) return
         getMovieSearchUseCase(
             query = searchText,
@@ -49,6 +34,7 @@ class MovieSearchViewModel @Inject constructor(
                 is Resource.Loading -> {
                     _items.value = getPureItems() + LoadingEntity
                 }
+
                 is Resource.Success -> {
                     if (pageCount == 1 && result.model.movieEntities.isEmpty()) {
                         _items.value = listOf(EmptyEntity())
@@ -61,8 +47,13 @@ class MovieSearchViewModel @Inject constructor(
                         isAllLoaded = true
                     }
                 }
+
                 is Resource.Fail -> {
-                    _items.value = listOf(ErrorEntity(result.exception))
+                    if (pageCount == 1) {
+                        _items.value = listOf(ErrorEntity(result.exception))
+                    } else {
+                        _items.value = getPureItems() + BottomErrorEntity
+                    }
                 }
             }
         }.launchIn(viewModelScope)

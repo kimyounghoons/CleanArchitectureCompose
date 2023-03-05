@@ -1,14 +1,12 @@
 package net.deali.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import net.deali.core.BaseViewModel
+import net.deali.core.LazyColumnViewModel
 import net.deali.coredomain.Resource
-import net.deali.coredomain.entity.BaseEntity
+import net.deali.coredomain.entity.BottomErrorEntity
 import net.deali.coredomain.entity.EmptyEntity
 import net.deali.coredomain.entity.ErrorEntity
 import net.deali.coredomain.entity.LoadingEntity
@@ -19,30 +17,10 @@ import javax.inject.Inject
 @HiltViewModel
 class PopularMoviesViewModel @Inject constructor(
     private val getPopularMovieUseCase: GetPopularMovieUseCase
-) : BaseViewModel() {
-    private val _items = MutableLiveData<List<BaseEntity>>(listOf())
-    val items: LiveData<List<BaseEntity>> = _items
+) : LazyColumnViewModel() {
 
-    var pageCount: Int = 1
-    var isAllLoaded: Boolean = false
-    fun onRefresh() {
-        if (hasLoadingEntity()) return
-        _items.value = listOf()
-        pageCount = 1
-        isAllLoaded = false
-        onLoadMore()
-    }
-
-    private fun hasLoadingEntity() = _items.value?.any {
-        it is LoadingEntity
-    } ?: false
-
-    private fun getPureItems() = _items.value?.filterNot {
-        it is LoadingEntity
-    } ?: listOf()
-
-    fun onLoadMore() {
-        if (hasLoadingEntity() || isAllLoaded) return
+    override fun onLoadMore() {
+        if (hasLoadingEntity() || hasBottomErrorEntity() || isAllLoaded) return
 
         getPopularMovieUseCase(pageCount).onEach { result ->
             when (result) {
@@ -64,7 +42,11 @@ class PopularMoviesViewModel @Inject constructor(
                 }
 
                 is Resource.Fail -> {
-                    _items.value = listOf(ErrorEntity(result.exception))
+                    if (pageCount == 1) {
+                        _items.value = listOf(ErrorEntity(result.exception))
+                    } else {
+                        _items.value = getPureItems() + BottomErrorEntity
+                    }
                 }
             }
         }.launchIn(viewModelScope)

@@ -54,6 +54,7 @@ class MovieSearchActivity : BaseActivity<MovieSearchViewModel>() {
                 onSearch = vm::onSearch,
                 onLoadMore = vm::onLoadMore,
                 onRefresh = vm::onRefresh,
+                onBottomRefresh = vm::onBottomRefresh,
                 onGoToDetail = vm::onGoToDetail
             )
         }
