@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import net.deali.data.mapper.MovieSearchKeywordMapper
 import net.deali.data.mapper.MovieSearchMapper
 import net.deali.data.repository.SearchRepositoryImpl
 import net.deali.data.service.SearchApiService
@@ -25,12 +26,16 @@ object MovieSearchApiModule {
     @Provides
     fun provideRepository(
         service: SearchApiService,
-        movieSearchMapper: MovieSearchMapper
+        movieSearchMapper: MovieSearchMapper,
+        movieSearchKeywordMapper: MovieSearchKeywordMapper
     ): SearchRepository {
-        return SearchRepositoryImpl(service, movieSearchMapper)
+        return SearchRepositoryImpl(service, movieSearchMapper, movieSearchKeywordMapper)
     }
 
     @Provides
     fun provideMovieSearchMapper(): MovieSearchMapper = MovieSearchMapper()
+
+    @Provides
+    fun provideMovieSearchKeywordMapper(): MovieSearchKeywordMapper = MovieSearchKeywordMapper()
 }
 

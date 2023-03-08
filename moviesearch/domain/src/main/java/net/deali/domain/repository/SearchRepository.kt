@@ -2,6 +2,7 @@ package net.deali.domain.repository
 
 import net.deali.coredomain.Resource
 import net.deali.domain.entity.MovieSearchEntity
+import net.deali.domain.entity.MovieSearchKeywordEntity
 
 interface SearchRepository {
     suspend fun getSearchMovies(
@@ -10,4 +11,9 @@ interface SearchRepository {
         includeAdult: Boolean?,
         region: String?,
     ): Resource<MovieSearchEntity>
+
+    suspend fun getMovieSearchKeywords(
+        query: String,
+        page: Int,
+    ): Resource<MovieSearchKeywordEntity>
 }

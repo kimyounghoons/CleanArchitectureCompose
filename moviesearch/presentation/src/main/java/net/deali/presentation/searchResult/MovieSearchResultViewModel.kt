@@ -1,5 +1,6 @@
-package net.deali.presentation
+package net.deali.presentation.searchResult
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -12,16 +13,19 @@ import net.deali.coredomain.entity.ErrorEntity
 import net.deali.coredomain.entity.LoadingEntity
 import net.deali.coredomain.entity.MovieEntity
 import net.deali.domain.usecase.GetMovieSearchUseCase
+import net.deali.navigator.NavigatorKey
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieSearchViewModel @Inject constructor(
+class MovieSearchResultViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     val getMovieSearchUseCase: GetMovieSearchUseCase
 ) : LazyColumnViewModel() {
-    var searchText: String = ""
+    private val searchText: String =
+        savedStateHandle[NavigatorKey.SearchResultMovies.KEY_KEYWORD] ?: ""
 
     override fun onRefresh() {
-        onSearch(searchText)
+        onSearch()
     }
 
     override fun onLoadMore() {
@@ -59,12 +63,11 @@ class MovieSearchViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun onSearch(searchText: String) {
-        if (hasLoadingEntity() || searchText.isEmpty()) return
+    fun onSearch() {
+        if (hasLoadingEntity()) return
         _items.value = listOf()
         pageCount = 1
         isAllLoaded = false
-        this.searchText = searchText
         onLoadMore()
     }
 
@@ -76,5 +79,4 @@ class MovieSearchViewModel @Inject constructor(
     }
 
     class GoToDetailEvent(val movieId: Int, val title: String) : Event()
-
 }

@@ -4,25 +4,31 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import net.deali.core.ui.compose.LazyColumnMoviesCompose
 import net.deali.coredomain.entity.BaseEntity
-import net.deali.coredomain.entity.MovieEntity
+
 
 @Composable
-fun MovieSearchResultCompose(
+fun MovieSearchKeywordCompose(
     items: List<BaseEntity>,
+    onSearch: (String) -> Unit,
+    onSearchClear: () -> Unit,
     onLoadMore: () -> Unit,
     onRefresh: () -> Unit,
     onBottomRefresh: () -> Unit,
-    onGoToDetail: (movieEntity: MovieEntity) -> Unit
+    onGoToSearchResult: (keyword: String) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        LazyColumnMoviesCompose(
+        SearchTextField(
+            onSearch = onSearch,
+            onGoToSearchResult = onGoToSearchResult,
+            onSearchClear = onSearchClear
+        )
+        LazyColumnSearchKeywordsCompose(
             items = items,
             onLoadMore = onLoadMore,
             onRefresh = onRefresh,
             onBottomRefresh = onBottomRefresh,
-            onGoToDetail = onGoToDetail
+            onGoToSearchResult = onGoToSearchResult
         )
     }
 }

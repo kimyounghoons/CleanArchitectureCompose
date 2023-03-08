@@ -1,5 +1,6 @@
 package net.deali.data.service
 
+import net.deali.data.response.MovieSearchKeywordResponse
 import net.deali.data.response.MovieSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,4 +17,13 @@ interface SearchApiService {
         @Query("include_adult") includeAdult: Boolean?,
         @Query("region") region: String?,
     ): MovieSearchResponse
+
+    /*
+    * API 정보 : https://developers.themoviedb.org/3/search/search-keywords
+    * */
+    @GET("/3/search/keyword")
+    suspend fun getMovieSearchKeyword(
+        @Query("query") query: String,
+        @Query("page") page: Int,
+    ): MovieSearchKeywordResponse
 }

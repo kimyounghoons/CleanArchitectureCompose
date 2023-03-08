@@ -7,6 +7,9 @@ sealed class NavigatorKey {
     }
 
     object PopularMovies : NavigatorKey()
-    object SearchMovies : NavigatorKey()
+    object SearchResultMovies : NavigatorKey() {
+        const val KEY_KEYWORD = "KEY_KEYWORD"
+    }
+
     object NowPlayingMovies : NavigatorKey()
 }

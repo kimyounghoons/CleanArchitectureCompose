@@ -1,4 +1,4 @@
-package net.deali.presentation
+package net.deali.presentation.searchKeyword
 
 import android.app.Activity
 import android.content.Intent
@@ -12,32 +12,15 @@ import net.deali.core.BaseActivity
 import net.deali.core.ui.compose.SecondScaffold
 import net.deali.navigator.Navigator
 import net.deali.navigator.NavigatorKey
-import net.deali.presentation.ui.MovieSearchCompose
+import net.deali.presentation.ui.MovieSearchKeywordCompose
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MovieSearchActivity : BaseActivity<MovieSearchViewModel>() {
-    override val vm: MovieSearchViewModel by viewModels()
+class MovieSearchKeywordActivity : BaseActivity<MovieSearchKeywordViewModel>() {
+    override val vm: MovieSearchKeywordViewModel by viewModels()
 
     @Inject
     lateinit var navigator: Navigator
-
-    override fun initObserver() {
-        vm.event.observe(this) { event ->
-            when (event) {
-                is MovieSearchViewModel.GoToDetailEvent -> {
-                    navigator.startActivity(
-                        this,
-                        NavigatorKey.MovieDetail,
-                        Bundle().apply {
-                            putInt(NavigatorKey.MovieDetail.KEY_MOVIE_ID, event.movieId)
-                            putString(NavigatorKey.MovieDetail.KEY_MOVIE_TITLE, event.title)
-                        }
-                    )
-                }
-            }
-        }
-    }
 
     @Composable
     override fun ComposeContent() {
@@ -49,20 +32,37 @@ class MovieSearchActivity : BaseActivity<MovieSearchViewModel>() {
         ) {
             val items by vm.items.observeAsState(listOf())
 
-            MovieSearchCompose(
+            MovieSearchKeywordCompose(
                 items = items,
                 onSearch = vm::onSearch,
+                onSearchClear = vm::onSearchClear,
                 onLoadMore = vm::onLoadMore,
                 onRefresh = vm::onRefresh,
                 onBottomRefresh = vm::onBottomRefresh,
-                onGoToDetail = vm::onGoToDetail
+                onGoToSearchResult = vm::onGoToSearchResult
             )
+        }
+    }
+
+    override fun initObserver() {
+        vm.event.observe(this) { event ->
+            when (event) {
+                is MovieSearchKeywordViewModel.GoToSearchResultEvent -> {
+                    navigator.startActivity(
+                        this,
+                        NavigatorKey.SearchResultMovies,
+                        Bundle().apply {
+                            putString(NavigatorKey.SearchResultMovies.KEY_KEYWORD, event.keyword)
+                        }
+                    )
+                }
+            }
         }
     }
 
     companion object {
         fun open(activity: Activity) {
-            Intent(activity, MovieSearchActivity::class.java).let {
+            Intent(activity, MovieSearchKeywordActivity::class.java).let {
                 activity.startActivity(it)
             }
         }

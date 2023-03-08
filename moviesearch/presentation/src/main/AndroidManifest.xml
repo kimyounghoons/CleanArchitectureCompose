@@ -3,10 +3,16 @@
 
     <application>
         <activity
-                android:name="net.deali.presentation.MovieSearchActivity"
+                android:name="net.deali.presentation.searchKeyword.MovieSearchKeywordActivity"
+                android:exported="false"
+                android:label="@string/title_activity_search_keyword"
+                android:theme="@style/Theme.CleanArchitectureCompose" />
+        <activity
+                android:name="net.deali.presentation.searchResult.MovieSearchActivity"
                 android:exported="false"
                 android:label="@string/title_activity_movie_search"
                 android:theme="@style/Theme.CleanArchitectureCompose" />
+
         <provider
                 android:name="net.deali.presentation.contentProvider.MovieSearchContentProvider"
                 android:authorities="MovieSearchContentProvider"

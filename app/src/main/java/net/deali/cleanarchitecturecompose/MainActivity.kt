@@ -20,8 +20,8 @@ import net.deali.core.ui.compose.MainScaffold
 import net.deali.navigator.Navigator
 import net.deali.navigator.NavigatorKey
 import net.deali.nowplaying.presentation.NowPlayingMoviesActivity
-import net.deali.presentation.MovieSearchActivity
 import net.deali.presentation.PopularMoviesActivity
+import net.deali.presentation.searchKeyword.MovieSearchKeywordActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -66,7 +66,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
             title = "The Movie Database",
             actions = {
                 IconButton(onClick = {
-                    MovieSearchActivity.open(this@MainActivity)
+                    MovieSearchKeywordActivity.open(this@MainActivity)
                 }) {
                     Icon(imageVector = Icons.Default.Search, "Search")
                 }
