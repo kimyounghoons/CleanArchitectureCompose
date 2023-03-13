@@ -1,0 +1,108 @@
+{
+  ConstraintSets: {
+    start: {
+      bgImage: {
+        height: 250,
+        start: [
+          'parent',
+          'start'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'parent',
+          'top'
+        ],
+        custom: {
+          background: '#FFFFFF'
+        }
+      },
+      title: {
+        start: [
+          'bgImage',
+          'start',
+          16
+        ],
+        bottom: [
+          'bgImage',
+          'bottom',
+          16
+        ]
+      },
+    },
+    end: {
+      bgImage: {
+        height: 250,
+        start: [
+          'parent',
+          'start'
+        ],
+        end: [
+          'parent',
+          'end'
+        ],
+        top: [
+          'parent',
+          'top',
+          -125
+        ],
+        custom: {
+          background: '#FFFFFF'
+        }
+      },
+      title: {
+        top: [
+          'parent',
+          'top',
+          13
+        ],
+        start: [
+          'parent',
+          'start',
+          16
+        ]
+      },
+    }
+  },
+  Transitions: {
+    default: {
+      from: 'start',
+      to: 'end',
+      pathMotionArc: 'startHorizontal',
+      KeyFrames: {
+        KeyAttributes: [
+          {
+            target: [
+              'bgImage'
+            ],
+            frames: [
+              0,
+              100
+            ],
+            alpha: [
+              1,
+              0
+            ],
+          },
+          {
+            target: [
+              'title'
+            ],
+            frames: [
+              0,
+              50,
+              100
+            ],
+            translationX: [
+              0,
+              200,
+              148
+            ],
+          },
+        ]
+      }
+    }
+  }
+}

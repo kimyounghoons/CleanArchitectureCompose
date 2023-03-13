@@ -14,7 +14,6 @@ import net.deali.core.BaseActivity
 import net.deali.coredomain.entity.ErrorEntity
 import net.deali.detail.domain.entity.DetailEntity
 import net.deali.detail.presentation.ui.CollapsingToolbarParallaxEffect
-import net.deali.detail.presentation.ui.ErrorCompose
 
 @AndroidEntryPoint
 class MovieDetailActivity : BaseActivity<DetailViewModel>() {
@@ -38,11 +37,10 @@ class MovieDetailActivity : BaseActivity<DetailViewModel>() {
                     CollapsingToolbarParallaxEffect(
                         vm.movieTitle,
                         item as DetailEntity,
-                        onBackPressed = { finish() }
+                        onBackPressed = ::finish
                     )
                 }
                 is ErrorEntity -> {
-                    ErrorCompose(errorEntity = item as ErrorEntity)
                 }
             }
         }
