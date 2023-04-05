@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import net.deali.data.mapper.PopularMovieMapper
 import net.deali.data.repository.PopularRepositoryImpl
 import net.deali.data.service.PopularApiService
 import net.deali.domain.repository.PopularRepository
@@ -24,12 +23,9 @@ object PopularMoviesApiModule {
     @Singleton
     @Provides
     fun provideRepository(
-        service: PopularApiService,
-        popularMovieMapper: PopularMovieMapper
+        service: PopularApiService
     ): PopularRepository {
-        return PopularRepositoryImpl(service, popularMovieMapper)
+        return PopularRepositoryImpl(service)
     }
 
-    @Provides
-    fun provideMovieSearchMapper(): PopularMovieMapper = PopularMovieMapper()
 }

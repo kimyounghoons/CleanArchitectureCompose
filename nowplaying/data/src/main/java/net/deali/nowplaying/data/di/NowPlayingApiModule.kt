@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import net.deali.nowplaying.data.mapper.NowPlayingMapper
 import net.deali.nowplaying.data.repository.NowPlayingRepositoryImpl
 import net.deali.nowplaying.data.service.NowPlayingApiService
 import net.deali.nowplaying.domain.repository.NowPlayingRepository
@@ -25,12 +24,9 @@ object NowPlayingApiModule {
     @Provides
     fun provideRepository(
         service: NowPlayingApiService,
-        nowPlayingMapper: NowPlayingMapper
     ): NowPlayingRepository {
-        return NowPlayingRepositoryImpl(service, nowPlayingMapper)
+        return NowPlayingRepositoryImpl(service)
     }
 
-    @Provides
-    fun provideNowPlayingMapper(): NowPlayingMapper = NowPlayingMapper()
 }
 

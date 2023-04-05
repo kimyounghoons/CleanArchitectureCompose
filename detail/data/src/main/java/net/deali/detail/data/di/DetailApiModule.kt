@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import net.deali.detail.data.mapper.DetailMapper
 import net.deali.detail.data.repository.DetailRepositoryImpl
 import net.deali.detail.data.service.DetailApiService
 import net.deali.detail.domain.repository.DetailRepository
@@ -24,12 +23,9 @@ object DetailApiModule {
     @Singleton
     @Provides
     fun provideRepository(
-        service: DetailApiService,
-        detailMapper: DetailMapper
+        service: DetailApiService
     ): DetailRepository {
-        return DetailRepositoryImpl(service, detailMapper)
+        return DetailRepositoryImpl(service)
     }
 
-    @Provides
-    fun provideNowPlayingMapper(): DetailMapper = DetailMapper()
 }
