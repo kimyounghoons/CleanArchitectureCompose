@@ -58,6 +58,8 @@ dependencies {
     implementation(Libs.androidXComposeUi)
     implementation(Libs.androidXComposeUiToolingPreview)
     implementation(Libs.androidXComposeMaterial)
+    implementation(Libs.accompanistPager)
+    implementation(Libs.accompanistPagerIndicators)
 
     testImplementation(Libs.testJunit)
     androidTestImplementation(Libs.testExtJunit)
