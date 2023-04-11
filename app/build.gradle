@@ -38,6 +38,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        //Compose Composition 관련 Report
+        freeCompilerArgs += [
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${rootProject.file(".").absolutePath}/report/compose-reports"
+        ]
+
     }
     buildFeatures {
         compose true
