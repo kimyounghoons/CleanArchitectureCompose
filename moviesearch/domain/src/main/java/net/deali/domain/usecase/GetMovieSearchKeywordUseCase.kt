@@ -15,7 +15,7 @@ class GetMovieSearchKeywordUseCase @Inject constructor(
     operator fun invoke(
         query: String,
         page: Int,
-    ): Flow<Resource<MovieSearchKeywordEntity>> = callApi {
+    ): Flow<Resource<MovieSearchKeywordEntity>> = executeAndConvertToFlow {
         repository.getMovieSearchKeywords(
             query,
             page,

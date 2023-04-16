@@ -15,7 +15,7 @@ class GetNowPlayingUseCase @Inject constructor(
     operator fun invoke(
         page: Int,
         region: String? = null,
-    ): Flow<Resource<NowPlayingEntity>> = callApi {
+    ): Flow<Resource<NowPlayingEntity>> = executeAndConvertToFlow {
         repository.getNowPlayingMovies(
             page,
             region

@@ -17,7 +17,7 @@ class GetMovieSearchUseCase @Inject constructor(
         page: Int,
         includeAdult: Boolean? = null,
         region: String? = null,
-    ): Flow<Resource<MovieSearchEntity>> = callApi {
+    ): Flow<Resource<MovieSearchEntity>> = executeAndConvertToFlow {
         repository.getSearchMovies(
             query,
             page,

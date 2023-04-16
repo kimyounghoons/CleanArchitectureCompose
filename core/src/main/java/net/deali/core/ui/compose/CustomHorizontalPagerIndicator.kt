@@ -41,7 +41,7 @@ fun CustomHorizontalPagerIndicator(
     indicatorType: IndicatorType = IndicatorType.WaterDrop,
     cornerRadius: CornerRadius = CornerRadius(10f, 10f)
 ) {
-    if (pageCount == 0) {
+    if (pageCount < 2) {
         return
     }
 

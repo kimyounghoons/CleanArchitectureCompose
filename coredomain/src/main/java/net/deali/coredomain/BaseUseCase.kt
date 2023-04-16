@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flow
 import net.deali.coredomain.entity.BaseEntity
 
 open class BaseUseCase {
-    fun <response : BaseEntity> callApi(
+    fun <response : BaseEntity> executeAndConvertToFlow(
         responseFunction: suspend () -> Resource<response>
     ): Flow<Resource<response>> = flow {
         emit(Resource.Loading())

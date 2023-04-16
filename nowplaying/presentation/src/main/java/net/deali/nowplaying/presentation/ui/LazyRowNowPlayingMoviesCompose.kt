@@ -122,7 +122,7 @@ fun LazyRowNowPlayingMoviesCompose(
         CustomHorizontalPagerIndicator(
             modifier = Modifier.padding(top = 10.dp),
             pagerState = pagerState,
-            indicatorType = IndicatorType.General
+            indicatorType = IndicatorType.WaterDrop
         )
 
     }

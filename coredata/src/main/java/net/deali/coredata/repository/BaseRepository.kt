@@ -16,7 +16,7 @@ open class BaseRepository {
             Resource.Fail(ApiException.HttpException(code = e.code()))
         } catch (e: IOException) {
             Resource.Fail(ApiException.NetworkException)
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             Resource.Fail(ApiException.UnknownException)
         }
     }

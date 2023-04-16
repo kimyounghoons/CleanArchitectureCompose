@@ -14,7 +14,7 @@ class GetDetailUseCase @Inject constructor(
 ) : BaseUseCase() {
     operator fun invoke(
         movieId: Int,
-    ): Flow<Resource<DetailEntity>> = callApi {
+    ): Flow<Resource<DetailEntity>> = executeAndConvertToFlow {
         repository.getDetail(
             movieId = movieId
         )
