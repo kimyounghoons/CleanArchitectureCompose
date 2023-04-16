@@ -64,6 +64,7 @@ dependencies {
     implementation(Libs.androidXComposeMaterial)
     implementation(Libs.accompanistPager)
     implementation(Libs.accompanistPagerIndicators)
+    implementation(Libs.constraintLayoutCompose)
 
     testImplementation(Libs.testJunit)
     androidTestImplementation(Libs.testExtJunit)

@@ -17,10 +17,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstrainScope
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.Visibility
 import coil.compose.AsyncImage
+import net.deali.core.ui.compose.isVisible
 import net.deali.coredomain.entity.MovieEntity
 
 @Composable
@@ -53,8 +55,7 @@ fun HorizontalItem(item: MovieEntity, onGoToDetail: (movieEntity: MovieEntity) -
         )
         Text(
             modifier = Modifier.constrainAs(titleRef) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
+                centerHorizontallyTo(parent)
                 top.linkTo(imageRef.bottom)
                 bottom.linkTo(overViewRef.top)
                 width = Dimension.fillToConstraints
@@ -69,13 +70,11 @@ fun HorizontalItem(item: MovieEntity, onGoToDetail: (movieEntity: MovieEntity) -
 
         Text(
             modifier = Modifier.constrainAs(overViewRef) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
+                centerHorizontallyTo(parent)
                 top.linkTo(titleRef.bottom)
                 bottom.linkTo(parent.bottom)
                 width = Dimension.fillToConstraints
-                visibility =
-                    if (item.overview.isNotEmpty()) Visibility.Visible else Visibility.Gone
+                isVisible = item.overview.isNotEmpty()
             },
             text = item.overview,
             fontWeight = FontWeight.Bold,
